@@ -48,6 +48,6 @@ def restest():
                     taken=(time.time()-start)
                     print('Att ta bild med sensor_mode ' + str(camera.sensor_mode) + ': ' + str(taken) + ' s')
                 except:
-                    print('sensor_mode' + camera.sensor_mode + ' fungerade inte!')
+                    print('sensor_mode' + str(camera.sensor_mode) + ' fungerade inte!')
                 output.truncate(0)
 restest()
