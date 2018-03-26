@@ -41,7 +41,7 @@ def restest():
             #awb_vektor=['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']
             #meter_vektor=['average','spot','backlit','matrix']
             #exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
-            for i in [None, (128, 128):
+            for i in [None, (128, 128)]:
                 try:
                     start=time.time()
                     camera.color_effects=i
