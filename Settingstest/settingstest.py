@@ -15,7 +15,7 @@ def restest():
             #camera_num=0 
             #stereo_mode='none'
             #stereo_decimate=False
-            #camera.sensor_mode=0 #Automatiskt av resolution och framerate
+            camera.sensor_mode=7 #Automatiskt av resolution och framerate
             #led_pin=None #GPIO pin som ska styra kamerans led
             ###
             camera.sharpness = 0
@@ -26,13 +26,13 @@ def restest():
             camera.video_stabilization = False
             camera.exposure_compensation = 0
             camera.exposure_mode = 'auto'
-            camera.meter_mode = 'average'
+            camera.meter_mode = 'matrix'
             camera.awb_mode = 'auto'
             camera.image_effect = 'none'
-            camera.color_effects = None #(128, 128)=Svartvitt
+            camera.color_effects = (128, 128)#=Svartvitt
             camera.rotation = 0
-            camera.hflip = True
-            camera.vflip = True
+            camera.hflip = False
+            camera.vflip = False
             camera.crop = (0.0, 0.0, 1.0, 1.0)
             #Specifikt för camera.capture:
             uvp = False # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
@@ -42,20 +42,13 @@ def restest():
             #meter_vektor=['average','spot','backlit','matrix']
             #exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
             #color_effect_vektor=[None, (128, 128)]
-            tfvektor=[True, False]
-            for i in tfvektor:
-                for j in tfvektor:
-                    try:
-                        camera.hflip=i
-                        camera.vflip=j
-                        start=time.time()
-                        camera.capture(output, 'rgb',use_video_port=uvp) 
-                        #Gör något med output här
-                        
-                        end=time.time()
-                        taken=(time.time()-start)
-                        print('Att ta bild med ' + str(i) + str(j) + ': ' + str(taken) + ' s')
-                    except:
-                        print(str(i) + str(j) + ' fungerade inte!')
-                    output.truncate(0)
+            #tfvektor=[True, False]
+            start=time.time()
+            camera.capture(output, 'rgb',use_video_port=uvp) 
+            #Gör något med output här
+            
+            end=time.time()
+            taken=(time.time()-start)
+            print('Att ta bild med bästa settings': ' + str(taken) + ' s')
+
 restest()
