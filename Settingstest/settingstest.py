@@ -44,6 +44,6 @@ def restest():
                 #Gör något med output här
                 output.truncate(0)
                 end=time.time()
-                taken=(time.time()-start)/numberof
+                taken=(time.time()-start)
                 print('Att ta bild med sensor_mode ' + str(camera.sensor_mode) + ': ' + str(taken) + ' s')
 restest()
