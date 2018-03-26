@@ -35,15 +35,19 @@ def restest():
             camera.vflip = True
             camera.crop = (0.0, 0.0, 1.0, 1.0)
             #Specifikt för camera.capture:
-            uvp = True # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
+            uvp = False # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
             ######################################
-            start=time.time()
             for i in [0, 1, 2, 3, 4, 5, 6, 7]:
-                camera.sensor_mode=i
-                camera.capture(output, 'rgb',use_video_port=uvp) 
-                #Gör något med output här
+                try:
+                    start=time.time()
+                    camera.sensor_mode=i
+                    camera.capture(output, 'rgb',use_video_port=uvp) 
+                    #Gör något med output här
+                    
+                    end=time.time()
+                    taken=(time.time()-start)
+                    print('Att ta bild med sensor_mode ' + str(camera.sensor_mode) + ': ' + str(taken) + ' s')
+                except:
+                    print('sensor_mode' + camera.sensor_mode + ' fungerade inte!')
                 output.truncate(0)
-                end=time.time()
-                taken=(time.time()-start)
-                print('Att ta bild med sensor_mode ' + str(camera.sensor_mode) + ': ' + str(taken) + ' s')
 restest()
