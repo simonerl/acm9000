@@ -29,7 +29,7 @@ def restest():
             camera.meter_mode = 'average'
             camera.awb_mode = 'auto'
             camera.image_effect = 'none'
-            camera.color_effects = None
+            camera.color_effects = None #(128, 128)=Svartvitt
             camera.rotation = 0
             camera.hflip = True
             camera.vflip = True
@@ -40,11 +40,11 @@ def restest():
             #sensor_vektor = [0, 1, 2, 3, 4, 5, 6, 7]
             #awb_vektor=['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']
             #meter_vektor=['average','spot','backlit','matrix']
-            exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
-            for i in exposure_vektor:
+            #exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
+            for i in [None, (128, 128):
                 try:
                     start=time.time()
-                    camera.exposure_mode=i
+                    camera.color_effects=i
                     camera.capture(output, 'rgb',use_video_port=uvp) 
                     #Gör något med output här
                     
