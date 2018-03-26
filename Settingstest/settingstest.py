@@ -44,7 +44,7 @@ def restest():
             for i in exposure_vektor:
                 try:
                     start=time.time()
-                    camera.meter_mode=i
+                    camera.exposure_mode=i
                     camera.capture(output, 'rgb',use_video_port=uvp) 
                     #Gör något med output här
                     
