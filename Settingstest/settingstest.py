@@ -54,7 +54,7 @@ def restest():
                         
                         end=time.time()
                         taken=(time.time()-start)
-                        print('Att ta bild med ' + str(i) + str(j) ': ' + str(taken) + ' s')
+                        print('Att ta bild med ' + str(i) + str(j) + ': ' + str(taken) + ' s')
                     except:
                         print(str(i) + str(j) + ' fungerade inte!')
                     output.truncate(0)
