@@ -35,7 +35,7 @@ def restest():
             camera.vflip = True
             camera.crop = (0.0, 0.0, 1.0, 1.0)
             #Specifikt för camera.capture:
-            uvp = False # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
+            uvp = True # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
             ######################################
             for i in [0, 1, 2, 3, 4, 5, 6, 7]:
                 try:
