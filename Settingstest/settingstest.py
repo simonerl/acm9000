@@ -49,6 +49,6 @@ def restest():
             
             end=time.time()
             taken=(time.time()-start)
-            print('Att ta bild med bästa settings': ' + str(taken) + ' s')
+            print('Att ta bild med bästa settings:'  + str(taken) + ' s')
 
 restest()
