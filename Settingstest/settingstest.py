@@ -42,7 +42,7 @@ def restest():
             #meter_vektor=['average','spot','backlit','matrix']
             #exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
             #color_effect_vektor=[None, (128, 128)]
-            #tfvektor=[True, False]
+            tfvektor=[True, False]
             for i in tfvektor:
                 for j in tfvektor:
                     try:
