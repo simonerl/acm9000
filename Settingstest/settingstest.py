@@ -29,7 +29,7 @@ def restest():
             camera.meter_mode = 'matrix'
             camera.awb_mode = 'auto'
             camera.image_effect = 'none'
-            camera.color_effects = (128, 128)#=Svartvitt
+            camera.color_effects = 'None'#=Svartvitt
             camera.rotation = 0
             camera.hflip = False
             camera.vflip = False
