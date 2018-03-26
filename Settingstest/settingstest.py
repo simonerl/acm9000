@@ -46,9 +46,9 @@ def restest():
             for i in tfvektor:
                 for j in tfvektor:
                     try:
-                        start=time.time()
                         camera.hflip=i
-                        camera.hflip=j
+                        camera.vflip=j
+                        start=time.time()
                         camera.capture(output, 'rgb',use_video_port=uvp) 
                         #Gör något med output här
                         
