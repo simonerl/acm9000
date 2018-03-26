@@ -41,17 +41,21 @@ def restest():
             #awb_vektor=['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']
             #meter_vektor=['average','spot','backlit','matrix']
             #exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
-            for i in [None, (128, 128)]:
-                try:
-                    start=time.time()
-                    camera.color_effects=i
-                    camera.capture(output, 'rgb',use_video_port=uvp) 
-                    #Gör något med output här
-                    
-                    end=time.time()
-                    taken=(time.time()-start)
-                    print('Att ta bild med sensor_mode ' + str(i) + ': ' + str(taken) + ' s')
-                except:
-                    print('sensor_mode' + str(i) + ' fungerade inte!')
-                output.truncate(0)
+            #color_effect_vektor=[None, (128, 128)]
+            #tfvektor=[True, False]
+            for i in tfvektor:
+                for j in tfvektor:
+                    try:
+                        start=time.time()
+                        camera.hflip=i
+                        camera.hflip=j
+                        camera.capture(output, 'rgb',use_video_port=uvp) 
+                        #Gör något med output här
+                        
+                        end=time.time()
+                        taken=(time.time()-start)
+                        print('Att ta bild med ' + str(i) + str(j) ': ' + str(taken) + ' s')
+                    except:
+                        print(str(i) + str(j) + ' fungerade inte!')
+                    output.truncate(0)
 restest()
