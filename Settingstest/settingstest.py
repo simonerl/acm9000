@@ -37,18 +37,20 @@ def restest():
             #Specifikt för camera.capture:
             uvp = False # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
             ######################################
-            #sensor_mode vektor : [0, 1, 2, 3, 4, 5, 6, 7]
-            for i in ['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']:
+            #sensor_vektor = [0, 1, 2, 3, 4, 5, 6, 7]
+            #awb_vektor=['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']
+            meter_vektor=['average','spot','backlit','matrix']
+            for i in metervektor:
                 try:
                     start=time.time()
-                    camera.awb_mode=i
+                    camera.meter_mode=i
                     camera.capture(output, 'rgb',use_video_port=uvp) 
                     #Gör något med output här
                     
                     end=time.time()
                     taken=(time.time()-start)
-                    print('Att ta bild med sensor_mode ' + str(camera.sensor_mode) + ': ' + str(taken) + ' s')
+                    print('Att ta bild med sensor_mode ' + str(i) + ': ' + str(taken) + ' s')
                 except:
-                    print('sensor_mode' + str(camera.sensor_mode) + ' fungerade inte!')
+                    print('sensor_mode' + str(i) + ' fungerade inte!')
                 output.truncate(0)
 restest()
