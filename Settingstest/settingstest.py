@@ -39,8 +39,9 @@ def restest():
             ######################################
             #sensor_vektor = [0, 1, 2, 3, 4, 5, 6, 7]
             #awb_vektor=['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']
-            meter_vektor=['average','spot','backlit','matrix']
-            for i in meter_vektor:
+            #meter_vektor=['average','spot','backlit','matrix']
+            exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
+            for i in exposure_vektor:
                 try:
                     start=time.time()
                     camera.meter_mode=i
