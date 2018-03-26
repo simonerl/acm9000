@@ -3,7 +3,7 @@ import picamera.array
 import time
 
 def restest():
-    """Ska test hur långtid det tar (i genomsnitt) för numberof bilder med given width och eight"""
+    """Ska test hur långtid det tar att ta en bild->rgb-matris"""
     with picamera.PiCamera() as camera:
         with picamera.array.PiRGBArray(camera) as output:
             ######################################
@@ -44,6 +44,7 @@ def restest():
             #color_effect_vektor=[None, (128, 128)]
             #tfvektor=[True, False]
             start=time.time()
+            camera.capture('baest.jpeg') 
             camera.capture(output, 'rgb',use_video_port=uvp) 
             #Gör något med output här
             
