@@ -7,9 +7,9 @@
 
 
 class Hbrygga:
-    def __init__():
+    def __init__(self):
         pass
-    def setup():
+    def setup(self):
         import RPi.GPIO as GPIO
         import time
         
@@ -30,12 +30,12 @@ class Hbrygga:
         self.state2=(GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH)
         self.state3=(GPIO.LOW, GPIO.HIGH,GPIO.LOW, GPIO.HIGH)
         self.state4=(GPIO.LOW, GPIO.HIGH,GPIO.HIGH, GPIO.LOW)
-    def loop():
+    def loop(self):
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
         while True:
             stepForward(1,0.1)
-    def stepForward(steps, s_delay):
+    def stepForward(self,steps, s_delay):
         #Steps: antalet fyra-steg
         #ms_delay: Hur många sekunder mellan varje steg
         for i in range(steps):
@@ -48,11 +48,11 @@ class Hbrygga:
             GPIO.output(self.ctrlpins_list, self.state4)
             time.sleep(s_delay)
         pass
-    def nextState():
+    def nextState(self):
         pass
-    def stepBackward(steps, s_delay):
+    def stepBackward(self, steps, s_delay):
         pass
-    def prevousState():
+    def prevousState(self):
         pass
 
 if __name__=="__main__":
