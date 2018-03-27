@@ -43,6 +43,7 @@ class Hbrygga:
         try:
             while True:
                 self.velocityFunction(100, True)
+                self.velocityFunction(100, False)
                 #self.step(100,0.005, True)
                 #self.step(100,0.1, False)
                 #GPIO.output(self.ctrlpins_list, self.state0)
