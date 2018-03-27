@@ -70,15 +70,24 @@ class Hbrygga:
     def setupState(self):
         """Går igenom all states på motor och sätter state till start-state"""
         speed=0.01 #
-        for i in range(2):
-            GPIO.output(self.ctrlpins_list, self.state1)
-            time.sleep(speed)
-            GPIO.output(self.ctrlpins_list, self.state2)
-            time.sleep(speed)
-            GPIO.output(self.ctrlpins_list, self.state3)
-            time.sleep(speed)
-            GPIO.output(self.ctrlpins_list, self.state4)
-            time.sleep(speed)
+        
+        GPIO.output(self.ctrlpins_list, self.state1)
+        time.sleep(speed)
+        GPIO.output(self.ctrlpins_list, self.state1)
+        time.sleep(speed)
+        GPIO.output(self.ctrlpins_list, self.state2)
+        time.sleep(speed)
+        GPIO.output(self.ctrlpins_list, self.state2)
+        time.sleep(speed)
+        GPIO.output(self.ctrlpins_list, self.state3)
+        time.sleep(speed)
+        GPIO.output(self.ctrlpins_list, self.state3)
+        time.sleep(speed)
+        GPIO.output(self.ctrlpins_list, self.state4)
+        time.sleep(speed)
+        GPIO.output(self.ctrlpins_list, self.state4)
+        time.sleep(speed)
+        
         self.state=0
 
 if __name__=="__main__":
