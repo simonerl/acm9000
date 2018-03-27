@@ -7,10 +7,15 @@
 import RPi.GPIO as GPIO
 import time
 
+#TODO:
+#- Ensteg
+#- Överföringfunktion (reglerfel -> antal steg + hastighet)
+#- Hastighetsfunktion
+
+
+
 class Hbrygga:
     def __init__(self):
-        pass
-    def setup(self):
         #setup GPIO using Board numbering
         GPIO.setmode(GPIO.BOARD)
         
@@ -19,10 +24,9 @@ class Hbrygga:
 
         #Setting up outputs:
         self.ctrlpins_list = [31,33,35,37]
-        self.enblpins_list = [36,38]
+        #self.enblpins_list = [36,38] #Ger bara 3V
         GPIO.setup(self.ctrlpins_list, GPIO.OUT)
-        GPIO.setup(self.enblpins_list, GPIO.OUT, initial=GPIO.HIGH)
-
+        #GPIO.setup(self.enblpins_list, GPIO.OUT, initial=GPIO.HIGH)
 
         #HIGH = 3 V
         #LOW = 
@@ -31,8 +35,8 @@ class Hbrygga:
         self.state2=(GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH)
         self.state3=(GPIO.LOW, GPIO.HIGH,GPIO.LOW, GPIO.HIGH)
         self.state4=(GPIO.LOW, GPIO.HIGH,GPIO.HIGH, GPIO.LOW)
-
-        #GPIO.setwarnings(False) #RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
+        #GPIO.setwarnings(False) #Use to disable warnings.
+       
     def loop(self):
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
@@ -41,25 +45,41 @@ class Hbrygga:
                 self.stepForward(1,0.01)
         except KeyboardInterrupt:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
-    def stepForward(self,steps, s_delay):
-        #Steps: antalet fyra-steg
+
+    def stepForward(self, steps, s_delay):
+        #Steps: antalet en-steg
         #ms_delay: Hur många sekunder mellan varje steg
         for i in range(steps):
-            GPIO.output(self.ctrlpins_list, self.state1)
+            nextState()
             time.sleep(s_delay)
-            GPIO.output(self.ctrlpins_list, self.state2)
-            time.sleep(s_delay)
-            GPIO.output(self.ctrlpins_list, self.state3)
-            time.sleep(s_delay)
-            GPIO.output(self.ctrlpins_list, self.state4)
-            time.sleep(s_delay)
-        pass
+
     def nextState(self):
-        pass
+        if self.state=0:
+            GPIO.output(self.ctrlpins_list, self.state1)
+        elif self.state=1:
+            GPIO.output(self.ctrlpins_list, self.state2)
+        elif self.state=2:
+            GPIO.output(self.ctrlpins_list, self.state3)
+        else:
+            GPIO.output(self.ctrlpins_list, self.state3)
+        self.state=(self.state + 1)%4
     def stepBackward(self, steps, s_delay):
         pass
     def prevousState(self):
         pass
+    def setupState(self):
+        """Går igenom all states på motor och sätter statet till start"""
+        speed=0.01 #
+        for i in range(2):
+            GPIO.output(self.ctrlpins_list, self.state1)
+            time.sleep(speed)
+            GPIO.output(self.ctrlpins_list, self.state2)
+            time.sleep(speed)
+            GPIO.output(self.ctrlpins_list, self.state3)
+            time.sleep(speed)
+            GPIO.output(self.ctrlpins_list, self.state4)
+            time.sleep(speed)
+        self.state=0
 
 if __name__=="__main__":
     Hb=Hbrygga()
