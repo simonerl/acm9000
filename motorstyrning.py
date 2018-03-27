@@ -43,7 +43,7 @@ class Hbrygga:
         try:
             while True:
                 self.stepForward(1,0.01)
-                GPIO.output(self.ctrlpins_list, self.state0)
+                #GPIO.output(self.ctrlpins_list, self.state0)
         except KeyboardInterrupt:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
 
@@ -52,6 +52,7 @@ class Hbrygga:
         #s_delay: Hur många sekunder mellan varje steg
         for i in range(steps):
             self.nextState()
+            print(self.state)
             time.sleep(s_delay)
 
     def nextState(self):
