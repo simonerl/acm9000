@@ -42,7 +42,8 @@ class Hbrygga:
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
         try:
             while True:
-                self.step(1,0.01, True)
+                self.step(100,0.01, True)
+                self.step(100,0.01, False)
                 #GPIO.output(self.ctrlpins_list, self.state0)
         except KeyboardInterrupt:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
