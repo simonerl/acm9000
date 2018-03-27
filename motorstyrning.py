@@ -36,7 +36,7 @@ class Hbrygga:
         self.state3=(GPIO.LOW, GPIO.HIGH,GPIO.LOW, GPIO.HIGH)
         self.state4=(GPIO.LOW, GPIO.HIGH,GPIO.HIGH, GPIO.LOW)
         #GPIO.setwarnings(False) #Use to disable warnings.
-       
+        self.setupState()
     def loop(self):
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
@@ -68,7 +68,7 @@ class Hbrygga:
     def prevousState(self):
         pass
     def setupState(self):
-        """Går igenom all states på motor och sätter statet till start"""
+        """Går igenom all states på motor och sätter state till start-state"""
         speed=0.01 #
         for i in range(2):
             GPIO.output(self.ctrlpins_list, self.state1)
