@@ -13,10 +13,9 @@ class Hbrygga:
     def setup(self):
         #setup GPIO using Board numbering
         GPIO.setmode(GPIO.BOARD)
-        GPIO.cleanup()
         
         #Controller GPIO-pins: 31 33 35 37
-        #Enabling pins: 36 38
+        #Enabling pins: 36 38 
 
         #Setting up outputs:
         self.ctrlpins_list = [31,33,35,37]
@@ -24,18 +23,24 @@ class Hbrygga:
         GPIO.setup(self.ctrlpins_list, GPIO.OUT)
         GPIO.setup(self.enblpins_list, GPIO.OUT, initial=GPIO.HIGH)
 
+
+        #HIGH = 3 V
+        #LOW = 
         self.state0=(GPIO.LOW, GPIO.LOW, GPIO.LOW, GPIO.LOW) #Idle
         self.state1=(GPIO.HIGH, GPIO.LOW, GPIO.HIGH, GPIO.LOW)
         self.state2=(GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH)
         self.state3=(GPIO.LOW, GPIO.HIGH,GPIO.LOW, GPIO.HIGH)
         self.state4=(GPIO.LOW, GPIO.HIGH,GPIO.HIGH, GPIO.LOW)
 
-        GPIO.setwarnings(False) #RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
+        #GPIO.setwarnings(False) #RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
     def loop(self):
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
-        while True:
-            self.stepForward(1,0.1)
+        try:
+            while True:
+                self.stepForward(1,0.1)
+        except KeyboardInterrupt:
+            GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
     def stepForward(self,steps, s_delay):
         #Steps: antalet fyra-steg
         #ms_delay: Hur många sekunder mellan varje steg
@@ -60,4 +65,4 @@ if __name__=="__main__":
     Hb=Hbrygga()
     Hb.setup()
     Hb.loop()
-    GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
+    
