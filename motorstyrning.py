@@ -58,7 +58,7 @@ class Hbrygga:
             time.sleep(s_delay)
 
     def nextState(self, turnclockwise):
-    """Sätter nästa state på motorn beroende på om den ska röra sig med eller mot klockan"""
+        """Sätter nästa state på motorn beroende på om den ska röra sig med eller mot klockan"""
         if self.state==0:
             GPIO.output(self.ctrlpins_list, self.state1)
         elif self.state==1:
