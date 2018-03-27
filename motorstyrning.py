@@ -88,8 +88,8 @@ class Hbrygga:
         self.state=0
         
     def velocityFunction(self, steps,turnclockwise):
-        s_delay=lambda stepscount: (steps-stepscount)/1000
-        stepscount=0
+        s_delay=lambda stepscount: (steps-steps_count)/1000
+        steps_count=0
         for i in range(steps):
             self.nextState(turnclockwise)
             time.sleep(s_delay(steps_count))
