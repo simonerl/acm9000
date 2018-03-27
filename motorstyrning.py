@@ -13,6 +13,7 @@ class Hbrygga:
     def setup(self):
         #setup GPIO using Board numbering
         GPIO.setmode(GPIO.BOARD)
+        GPIO.cleanup()
         
         #Controller GPIO-pins: 31 33 35 37
         #Enabling pins: 36 38
@@ -28,6 +29,8 @@ class Hbrygga:
         self.state2=(GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH)
         self.state3=(GPIO.LOW, GPIO.HIGH,GPIO.LOW, GPIO.HIGH)
         self.state4=(GPIO.LOW, GPIO.HIGH,GPIO.HIGH, GPIO.LOW)
+
+        GPIO.setwarnings(False) #RuntimeWarning: This channel is already in use, continuing anyway.  Use GPIO.setwarnings(False) to disable warnings.
     def loop(self):
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
