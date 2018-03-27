@@ -42,20 +42,19 @@ class Hbrygga:
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
         try:
             while True:
-                self.stepForward(1,0.01)
+                self.step(1,0.01, True)
                 #GPIO.output(self.ctrlpins_list, self.state0)
         except KeyboardInterrupt:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
 
-    def stepForward(self, steps, s_delay):
+    def step(self, steps, s_delay, turnclockwise):
         #Steps: antalet en-steg
         #s_delay: Hur många sekunder mellan varje steg
         for i in range(steps):
-            self.nextState()
-            print(self.state)
+            self.nextState(turnclockwise)
             time.sleep(s_delay)
 
-    def nextState(self):
+    def nextState(self, turnclockwise):
         if self.state==0:
             GPIO.output(self.ctrlpins_list, self.state1)
         elif self.state==1:
@@ -64,11 +63,10 @@ class Hbrygga:
             GPIO.output(self.ctrlpins_list, self.state3)
         else: #self.state==3
             GPIO.output(self.ctrlpins_list, self.state4)
-        self.state=(self.state + 1)%4
-    def stepBackward(self, steps, s_delay):
-        pass
-    def prevousState(self):
-        pass
+        if turnclockwise==True: #clockwise
+            self.state=(self.state + 1)%4
+        else: #anti-clockwise
+            self.state=(self.state - 1)%4
     def setupState(self):
         """Går igenom all states på motor och sätter state till start-state"""
         speed=0.01 #
