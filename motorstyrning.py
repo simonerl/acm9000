@@ -93,7 +93,7 @@ class Hbrygga:
         for i in range(steps):
             self.nextState(turnclockwise)
             time.sleep(s_delay(steps_count))
-            stepscount+=1
+            steps_count+=1
             
 if __name__=="__main__":
     Hb=Hbrygga()
