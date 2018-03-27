@@ -4,15 +4,13 @@
 # Av: Simon Erlandsson                            #
 # Version: 2.0:2018-03-27                         #
 ###################################################
-
+import RPi.GPIO as GPIO
+import time
 
 class Hbrygga:
     def __init__(self):
         pass
     def setup(self):
-        import RPi.GPIO as GPIO
-        import time
-        
         #setup GPIO using Board numbering
         GPIO.setmode(GPIO.BOARD)
         
