@@ -48,9 +48,9 @@ class Hbrygga:
 
     def stepForward(self, steps, s_delay):
         #Steps: antalet en-steg
-        #ms_delay: Hur många sekunder mellan varje steg
+        #s_delay: Hur många sekunder mellan varje steg
         for i in range(steps):
-            nextState()
+            self.nextState()
             time.sleep(s_delay)
 
     def nextState(self):
