@@ -8,7 +8,6 @@ import RPi.GPIO as GPIO
 import time
 
 #TODO:
-#- Ensteg
 #- Överföringfunktion (reglerfel -> antal steg + hastighet)
 #- Hastighetsfunktion
 
@@ -38,17 +37,20 @@ class Hbrygga:
         #GPIO.setwarnings(False) #Use to disable warnings.
         self.setupState()
     def loop(self):
+        """Main-loop för stegning"""
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
         try:
             while True:
-                self.step(100,0.005, True)
-                self.step(100,0.1, False)
+                self.velocityFunction(100, True)
+                #self.step(100,0.005, True)
+                #self.step(100,0.1, False)
                 #GPIO.output(self.ctrlpins_list, self.state0)
         except KeyboardInterrupt:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
 
     def step(self, steps, s_delay, turnclockwise):
+        """Ta ett antal steg, med s_delay mellan varje steg, med eller mot klockan"""
         #Steps: antalet en-steg
         #s_delay: Hur många sekunder mellan varje steg
         for i in range(steps):
@@ -56,6 +58,7 @@ class Hbrygga:
             time.sleep(s_delay)
 
     def nextState(self, turnclockwise):
+    """Sätter nästa state på motorn beroende på om den ska röra sig med eller mot klockan"""
         if self.state==0:
             GPIO.output(self.ctrlpins_list, self.state1)
         elif self.state==1:
@@ -68,6 +71,7 @@ class Hbrygga:
             self.state=(self.state + 1)%4
         else: #anti-clockwise
             self.state=(self.state - 1)%4
+
     def setupState(self):
         """Går igenom all states på motor och sätter state till start-state"""
         speed=0.01 #
@@ -82,7 +86,15 @@ class Hbrygga:
         time.sleep(speed)
         
         self.state=0
-
+        
+    def velocityFunction(self, steps,turnclockwise):
+        s_delay=lambda stepscount: (steps-stepscount)/1000
+        stepscount=0
+        for i in range(steps):
+            self.nextState(turnclockwise)
+            time.sleep(s_delay(steps_count))
+            stepscount+=1
+            
 if __name__=="__main__":
     Hb=Hbrygga()
     Hb.loop()
