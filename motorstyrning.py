@@ -22,8 +22,8 @@ class Hbrygga:
         #Setting up outputs:
         self.ctrlpins_list = [31,33,35,37]
         self.enblpins_list = [36,38]
-        GPIO.setup(ctrlpins_list, GPIO.OUT)
-        GPIO.setup(enblpins_list, GPIO.OUT, initial=GPIO.HIGH)
+        GPIO.setup(self.ctrlpins_list, GPIO.OUT)
+        GPIO.setup(self.enblpins_list, GPIO.OUT, initial=GPIO.HIGH)
 
         self.state0=(GPIO.LOW, GPIO.LOW, GPIO.LOW, GPIO.LOW) #Idle
         self.state1=(GPIO.HIGH, GPIO.LOW, GPIO.HIGH, GPIO.LOW)
