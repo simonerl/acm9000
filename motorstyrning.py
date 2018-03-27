@@ -63,7 +63,7 @@ class Hbrygga:
         elif self.state==2:
             GPIO.output(self.ctrlpins_list, self.state3)
         else: #self.state==3
-            GPIO.output(self.ctrlpins_list, self.state3)
+            GPIO.output(self.ctrlpins_list, self.state4)
         self.state=(self.state + 1)%4
     def stepBackward(self, steps, s_delay):
         pass
