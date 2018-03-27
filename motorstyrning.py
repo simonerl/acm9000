@@ -34,7 +34,7 @@ class Hbrygga:
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
         while True:
-            stepForward(1,0.1)
+            self.stepForward(1,0.1)
     def stepForward(self,steps, s_delay):
         #Steps: antalet fyra-steg
         #ms_delay: Hur många sekunder mellan varje steg
