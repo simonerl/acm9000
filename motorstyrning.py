@@ -43,6 +43,7 @@ class Hbrygga:
         try:
             while True:
                 self.stepForward(1,0.01)
+                GPIO.output(self.ctrlpins_list, self.state0)
         except KeyboardInterrupt:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
 
@@ -54,11 +55,11 @@ class Hbrygga:
             time.sleep(s_delay)
 
     def nextState(self):
-        if self.state==1:
+        if self.state==2:
             GPIO.output(self.ctrlpins_list, self.state1)
-        elif self.state==2:
-            GPIO.output(self.ctrlpins_list, self.state2)
         elif self.state==3:
+            GPIO.output(self.ctrlpins_list, self.state2)
+        elif self.state==0:
             GPIO.output(self.ctrlpins_list, self.state3)
         else: #self.state==4
             GPIO.output(self.ctrlpins_list, self.state3)
@@ -73,19 +74,19 @@ class Hbrygga:
         
         GPIO.output(self.ctrlpins_list, self.state1)
         time.sleep(speed)
-        GPIO.output(self.ctrlpins_list, self.state1)
+        GPIO.output(self.ctrlpins_list, self.state0)
         time.sleep(speed)
         GPIO.output(self.ctrlpins_list, self.state2)
         time.sleep(speed)
-        GPIO.output(self.ctrlpins_list, self.state2)
+        GPIO.output(self.ctrlpins_list, self.state0)
         time.sleep(speed)
         GPIO.output(self.ctrlpins_list, self.state3)
         time.sleep(speed)
-        GPIO.output(self.ctrlpins_list, self.state3)
+        GPIO.output(self.ctrlpins_list, self.state0)
         time.sleep(speed)
         GPIO.output(self.ctrlpins_list, self.state4)
         time.sleep(speed)
-        GPIO.output(self.ctrlpins_list, self.state4)
+        GPIO.output(self.ctrlpins_list, self.state0)
         time.sleep(speed)
         
         self.state=0
