@@ -83,6 +83,5 @@ class Hbrygga:
 
 if __name__=="__main__":
     Hb=Hbrygga()
-    Hb.setup()
     Hb.loop()
     
