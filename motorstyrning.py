@@ -38,7 +38,7 @@ class Hbrygga:
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
         try:
             while True:
-                self.stepForward(1,0.1)
+                self.stepForward(1,0.01)
         except KeyboardInterrupt:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
     def stepForward(self,steps, s_delay):
