@@ -9,6 +9,7 @@
 import picamera
 import picamera.array
 import time
+import numpy
 def implementsettings(camera):
     """Will implement the settings below for a picamera object"""
     camera.sensor_mode=0 #Automatiskt av resolution och framerate
