@@ -67,4 +67,4 @@ if __name__=='__main__':
     camerastatus(camera)
     takejpgimage('test', camera) #Takes a test image
     output=takeRGBimage(camera)
-    print('Captured %dx%d image' % (output.ndarray.shape[1], output.ndarray.shape[0]))
+    print('Captured %dx%d image' % (output.array.shape[1], output.array.shape[0]))
