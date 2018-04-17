@@ -57,7 +57,7 @@ def camerastatus(camera):
 
 if __name__=='__main__':
     camera=picamera.PiCamera()
-    implementsetting(camera)
+    implementsettings(camera)
     camerastatus(camera)
     takejpgimage('test', camera) #Takes a test image
     takeRGBimage(camera)
