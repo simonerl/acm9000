@@ -1,15 +1,23 @@
+#############################################################
+#   Ett program för att tidtagning av  inställningar        #
+#   för en Raspberry Pi camera v.2 kopplad till en          #
+#   Raspberry Pi 3                                          #
+#   Av: Simon Erlandsson, CMAST                             #
+#   Skapad: 2018-03-26                                      #
+#   Kandidatexamensarbete i Mekatronik 2018                 #
+#############################################################
 import picamera
 import picamera.array
 import time
 
 def restest():
-    """Ska test hur långtid det tar att ta en bild->rgb-matris"""
+    """Testar hur lång tid det tar att ta en bild->rgb-matris"""
     with picamera.PiCamera() as camera:
         with picamera.array.PiRGBArray(camera) as output:
-            ######################################
-            #SETTINGS
-            #Ovissentliga är utkommenterade
-            ###
+            ###################################
+            #       SETTINGS                  #
+            #Ovissentliga är utkommenterade   #
+            ###################################
             #camera.resolution = (width, height)
             #camera.framerate = 10
             #camera_num=0 
@@ -38,24 +46,48 @@ def restest():
             camera.crop = (0.0, 0.0, 1.0, 1.0)
             camera.image_denoise=False
             #Specifikt för camera.capture:
+<<<<<<< HEAD
             uvp = True # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
             ######################################
             #sensor_vektor = [0, 1, 3, 4, 5, 6, 7]
+=======
+            uvp = False # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
+
+            ###########################################################
+            #OBS
+            #Koden måste modifieras för att testa olika inställningar
+            #Inställningsvektorer är hårdkodade och utkommenterade
+            #De kan itereras igenom med t.ex. en for-loop
+            ###########################################################
+
+            #sensor_vektor = [0, 1, 2, 3, 4, 5, 6, 7]
+>>>>>>> 5428ceec90d5d06c376f3b21a4f9b6fc36ff69b6
             #awb_vektor=['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']
             #meter_vektor=['average','spot','backlit','matrix']
             #exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
             #color_effect_vektor=[None, (128, 128)]
             #tfvektor=[True, False]
+            
+            #camera.capture('bild.jpeg') #Kan användas för att testa vilken sorts bild som fås ut
+
             start=time.time()
+<<<<<<< HEAD
             #camera.capture('baestuvp.jpeg',use_video_port=uvp)
             #camera.capture('baestfalseuvp.jpeg',use_video_port=False) 
+=======
+>>>>>>> 5428ceec90d5d06c376f3b21a4f9b6fc36ff69b6
             camera.capture(output, 'rgb',use_video_port=uvp) 
-            #Gör något med output här
-            
             end=time.time()
             taken=(time.time()-start)
+<<<<<<< HEAD
             print('Att ta bild med bästa settings:'  + str(taken) + ' s')
             print('Nuvarnade exposure speed ' + str(camera.exposure_speed) +' us')
             print('Image denoise: ' + str(camera.image_denoise))
             print('Image effect: ' + str(camera.image_effect))
 restest()
+=======
+            print('Att ta bild med givna sinställningar:'  + str(taken) + ' s')
+
+if __name__=="__main__":
+    restest()
+>>>>>>> 5428ceec90d5d06c376f3b21a4f9b6fc36ff69b6
