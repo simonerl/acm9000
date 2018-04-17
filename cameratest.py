@@ -6,6 +6,7 @@ camera = picamera.PiCamera()
 
 
 #Setting:
+camera.resolution = 0
 camera.sharpness = 0
 camera.contrast = 0
 camera.brightness = 50
@@ -22,7 +23,7 @@ camera.rotation = 0
 camera.hflip = True
 camera.vflip = True
 camera.crop = (0.0, 0.0, 1.0, 1.0)
-camera.capture('image.jpg') #Sparar en bild
+camera.capture('image8.jpg') #Sparar en bild
 
 #camera.start_preview() #Avsluta med ctrl-D
 #camera.stop_preview()
