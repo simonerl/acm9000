@@ -59,12 +59,12 @@ def camerastatus(camera):
     takeRGBimage(camera)
     end=time.time()
     taken=(time.time()-start)
-    print('Time to shoot RGB image ' + str(taken) + 'ms')
+    print('Time to shoot RGB image ' + str(taken) + 's')
 
 if __name__=='__main__':
     camera=picamera.PiCamera()
     implementsettings(camera)
-    camerastatus(camera)
     takejpgimage('test', camera) #Takes a test image
     output=takeRGBimage(camera)
+    camerastatus(camera)
     print('Captured %dx%d image' % (output.array.shape[1], output.array.shape[0]))
