@@ -54,10 +54,16 @@ def camerastatus(camera):
     print('Current exposure speed ' + str(camera.exposure_speed) +' us')
     print('Image denoise: ' + str(camera.image_denoise))
     print('Image effect: ' + str(camera.image_effect))
+    start=time.time()
+    takeRGBimage(camera)
+    end=time.time()
+    taken=(time.time()-start)
+    print('Time to shoot RGB image ' + str(taken) + 'ms')
 
 if __name__=='__main__':
     camera=picamera.PiCamera()
     implementsettings(camera)
     camerastatus(camera)
     takejpgimage('test', camera) #Takes a test image
-    takeRGBimage(camera)
+    output=takeRGBimage(camera)
+    print('Captured %dx%d image' % (output.array.shape[1], output.array.shape[0]))
