@@ -41,6 +41,7 @@ def takejpgimage(name,camera):
 def takeRGBimage(camera):
     """Takes an images and returns an RGB matrix in the form of a picamera.array.PiRGBArray"""
     output=picamera.array.PiRGBArray(camera)
+    output.truncate(0)
     #Specific for camera.capture:
     uvp = True # use_video_port  
     camera.capture(output, 'rgb',use_video_port=uvp)
