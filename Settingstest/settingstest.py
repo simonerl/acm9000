@@ -46,11 +46,10 @@ def restest():
             camera.crop = (0.0, 0.0, 1.0, 1.0)
             camera.image_denoise=False
             #Specifikt för camera.capture:
-<<<<<<< HEAD
+
             uvp = True # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
             ######################################
             #sensor_vektor = [0, 1, 3, 4, 5, 6, 7]
-=======
             uvp = False # use_video_port #Use_video_port = True, innebär att bilder tas snabbare som att det vore en video
 
             ###########################################################
@@ -61,7 +60,6 @@ def restest():
             ###########################################################
 
             #sensor_vektor = [0, 1, 2, 3, 4, 5, 6, 7]
->>>>>>> 5428ceec90d5d06c376f3b21a4f9b6fc36ff69b6
             #awb_vektor=['off','auto','sunlight','cloudy','shade','tungsten','fluorescent','incandescent','flash','horizon']
             #meter_vektor=['average','spot','backlit','matrix']
             #exposure_vektor=['off','auto','night','nightpreview','backlight','spotlight','sports','snow','beach','verylong','fixedfps','antishake','fireworks']
@@ -71,23 +69,21 @@ def restest():
             #camera.capture('bild.jpeg') #Kan användas för att testa vilken sorts bild som fås ut
 
             start=time.time()
-<<<<<<< HEAD
+
             #camera.capture('baestuvp.jpeg',use_video_port=uvp)
             #camera.capture('baestfalseuvp.jpeg',use_video_port=False) 
-=======
->>>>>>> 5428ceec90d5d06c376f3b21a4f9b6fc36ff69b6
+
+
             camera.capture(output, 'rgb',use_video_port=uvp) 
             end=time.time()
             taken=(time.time()-start)
-<<<<<<< HEAD
+
             print('Att ta bild med bästa settings:'  + str(taken) + ' s')
             print('Nuvarnade exposure speed ' + str(camera.exposure_speed) +' us')
             print('Image denoise: ' + str(camera.image_denoise))
             print('Image effect: ' + str(camera.image_effect))
 restest()
-=======
-            print('Att ta bild med givna sinställningar:'  + str(taken) + ' s')
 
 if __name__=="__main__":
     restest()
->>>>>>> 5428ceec90d5d06c376f3b21a4f9b6fc36ff69b6
+
