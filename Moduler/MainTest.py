@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 import time
 import numpy as np
 from scipy import misc
-import matplotlib.pyplot as plt
-import PIL as Image
+#import matplotlib.pyplot as plt
+#import PIL as Image
 
 
 def GreenFilt(RGB,REF,DivFactor):
@@ -26,9 +26,12 @@ def GreenPos(RGB): #En ide är att lägga in denna funktionalitet i Greenfilt f�
         GPos=np.int64(np.array([0,0]))
         for i in range(0,m):                
                 for j in range(0,k):
-                        GPos=(GPos+(RGB[i,j]*np.array([i,j])))  
+                        GPos=(GPos+(RGB[i,j,1]*np.array([i,j])))  
         Pos=np.around(GPos/np.sum(RGB))
-        return (int(Pos[0]),int(Pos[1]))
+        try:
+            return (int(Pos[0]),int(Pos[1]))
+        except:
+            return False
 
 def implementsettings(camera):
     """Will implement the settings below for a picamera object"""
@@ -146,16 +149,31 @@ class Hbrygga:
 
 camera=picamera.PiCamera()
 implementsettings(camera)
-H=HBrygga()
-
+H=Hbrygga()
+n=0;
 while True:
-    Image=takeRGBimage(camera)
-    FiltIm=GreenFilt(Image)
-    [PosX,PosY]=GreenPos(FiltIm)
-    if PosX<112/2:
-        H.step(10,20,True)
-    elif PosX>112/2:
-        H.step(10,20,False)
+    n+=1;
+    image=takeRGBimage(camera).array
+    im2=image.copy()
+    FiltIm=GreenFilt(im2,[100,210,100],10)
+    
+    misc.imsave('TestPic' +str(n)+'.jpeg', image)
+    misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
+    
+    Pos=GreenPos(FiltIm)
+    if not Pos:
+        print("Im sorry Dave,im afraid i cant do that..")
+    else:
+        [PosY,PosX]=Pos
+        print(PosX,PosY)
+        print(im2.shape)
+        if PosX<112/4:
+            H.step(30,0.01,False)
+            print("Stepping Right")
+        else:
+            H.step(30,0.01,True)
+            print("Stepping Left")
+    
         
     
 
