@@ -85,7 +85,7 @@ def image_module(positionlogg):
     implementsettings(camera)
     while True:
         image=takeRGBimage(camera).array
-        currentPos=positionlogg.position #So we know where the image was taken
+        currentPos=positionlogg.COV #So we know where the image was taken
         im2=image.copy()
         FiltIm=GreenFilt(im2,[100,210,100],10)
         #misc.imsave('TestPic' +str(n)+'.jpeg', image)
