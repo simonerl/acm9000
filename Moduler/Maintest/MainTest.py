@@ -26,9 +26,12 @@ def GreenPos(RGB): #En ide är att lägga in denna funktionalitet i Greenfilt f�
         GPos=np.int64(np.array([0,0]))
         for i in range(0,m):                
                 for j in range(0,k):
-                        GPos=(GPos+(RGB[i,j]*np.array([i,j])))  
+                        GPos=(GPos+(RGB[i,j,1]*np.array([i,j])))  
         Pos=np.around(GPos/np.sum(RGB))
-        return (int(Pos[0]),int(Pos[1]))
+        try:
+            return (int(Pos[0]),int(Pos[1]))
+        except:
+            return False
 
 def implementsettings(camera):
     """Will implement the settings below for a picamera object"""
@@ -146,9 +149,10 @@ class Hbrygga:
 
 camera=picamera.PiCamera()
 implementsettings(camera)
-H=HBrygga()
-
+H=Hbrygga()
+n=0;
 while True:
+<<<<<<< HEAD:Moduler/MainTest.py
     image=takeRGBimage(camera)
     FiltIm=GreenFilt(image)
     [PosX,PosY]=GreenPos(FiltIm)
@@ -156,6 +160,45 @@ while True:
         H.step(10,20,True)
     elif PosX>112/2:
         H.step(10,20,False)
+=======
+    t1=time.time()
+    n+=1;
+    image=takeRGBimage(camera).array
+    im2=image.copy()
+    t2=time.time()
+    print('Taking an imagetakes: '+str(t2-t1))
+    t3=time.time()
+    FiltIm=GreenFilt(im2,[100,210,100],10)
+    t4=time.time()
+    t43=t4-t3
+    print('The GreenFilt takes: '+ str(t43))
+    #misc.imsave('TestPic' +str(n)+'.jpeg', image)
+    #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
+    t5=time.time()
+    Pos=GreenPos(FiltIm)
+    t6=time.time()
+    t65=t6-t5
+    print( 'The GreenPos takes: ' + str(t65))
+    if not Pos:
+        print("Im sorry Dave,im afraid i cant do that..")
+    else:
+        [PosY,PosX]=Pos
+        print(PosX,PosY)
+        print(im2.shape)
+        if PosX<112/4:
+            H.step(30,0.01,False)
+            print("Stepping Right")
+        else:
+            H.step(30,0.01,True)
+            print("Stepping Left")
+        t7=time.time()
+        t=t7-t1
+        print('Calculation time was: ' + str(t))
+##    H.step(3000,0.01,False)
+##    H.step(3000,0.01,True)
+    
+    
+>>>>>>> f275448d0b2cb2c1850fa18190d3294714466c22:Moduler/Maintest/MainTest.py
         
     
 
