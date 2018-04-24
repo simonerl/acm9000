@@ -44,7 +44,6 @@ class positionlogg():
         #OTHER#
         #######
         self.textlog=queue.Queue()
-        self.isTurning=False #is the motor turning. set this to false and the motor stops
     def add_steps(self,steps):
         """Adding steps the motor has moved: positive to the right, negative to the left"""
         #TODO:
@@ -88,17 +87,16 @@ def motor_module(positionlogg,loop=True):
     positionlogg.textlog.put('Initializing (old) motor module')
     H=Hbrygga()
     while loop:
-        PosX = positionlogg.get_realerror()
+        PosX = positionlogg.get_realerror() #In steps
         if PosX>10:
-            steps=positionlogg.PixelsToSteps(PosX)
-            t0=time.time()
+            positionlogg
+            steps=PosX
             while steps>0:
                 H.onestep(0.02,True)
                 positionlogg.COV+=1
                 steps-=1
-            positionlogg.textlog.put('Steptime: ' + str(t0-time.time()))
         elif PosX<-10:
-            steps=abs(positionlogg.PixelsToSteps(PosX))
+            steps=abs(PosX)
             while steps>0:
                 H.onestep(0.02,False)
                 positionlogg.COV-=1
@@ -148,9 +146,8 @@ def image_module(positionlogg):
         [PosX,PosY]=PosFunOneD(FiltIm)
         #positionlogg.textlog.put('Position found: ' + str(PosX))
         if abs(PosX)>10:
-            positionlogg.errorvalue=PosX
+            positionlogg.errorvalue=positionlogg.PixelsToSteps(PosX)
             positionlogg.imageposition=currentPos
-            positionlogg.isTurning=False #Stop the motor from turning
         #positionlogg.textlog.put(positionlogg.current_position())
 
 ###################################################################
