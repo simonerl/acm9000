@@ -103,7 +103,7 @@ def motor_module(positionlogg,loop=True):
             while positionlogg.isTurning and steps<0:
                 H.onestep(0.01,False)
                 positionlogg.COV-=1
-                steps+=1
+                steps-=1
             positionlogg.isTurning=False
 
 
