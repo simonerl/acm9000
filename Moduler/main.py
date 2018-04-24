@@ -125,10 +125,10 @@ def image_module(positionlogg):
         #[PosX,PosY]=GreenPos(FiltIm)
         [PosX,PosY]=PosFunOneD(FiltIm)
         #positionlogg.textlog.put('Position found: ' + str(PosX))
-        if PosX:
+        if abs(PosX)>10:
             positionlogg.errorvalue=PosX
             positionlogg.imageposition=currentPos
-            positionlogg.isTurning=False #STop the motor from turning
+            positionlogg.isTurning=False #Stop the motor from turning
         positionlogg.textlog.put(positionlogg.current_position())
 
 ###################################################################
