@@ -33,7 +33,7 @@ class positionlogg():
         self.cameraFOV_steps=round(self.cameraFOV/360*self.steprevolution) #Camera Field Of View measured in steps
         self.steplock=self.degreelock/360*self.steprevolution #How many steps the motor should be able to turn
 
-        #TODO: Setup code here where user puts the step motor in the middle 90 degrees (or 50 steps)
+        #TODO: Setup code here where user puts the step motor in the middle 90 degrees
         #################
         #POSITION VALUES#
         #################
@@ -44,7 +44,7 @@ class positionlogg():
         #OTHER#
         #######
         self.textlog=queue.Queue()
-        self.isTurning=False
+        self.isTurning=False #is the motor turning. set this to false and the motor stops
     def add_steps(self,steps):
         """Adding steps the motor has moved: positive to the right, negative to the left"""
         #TODO:
@@ -91,7 +91,6 @@ def motor_module(positionlogg,loop=True):
         PosX = positionlogg.get_realerror()
         if PosX>10:
             steps=positionlogg.PixelsToSteps(PosX)
-            positionlogg.textlog.put(steps)
             positionlogg.isTurning=True
             while positionlogg.isTurning and steps>0:
                 H.onestep(0.01,True)
@@ -100,7 +99,6 @@ def motor_module(positionlogg,loop=True):
             positionlogg.isTurning=False
         elif PosX<-10:
             steps=abs(positionlogg.PixelsToSteps(PosX))
-            positionlogg.textlog.put(steps)
             positionlogg.isTurning=True
             while positionlogg.isTurning and steps<0:
                 H.onestep(0.01,False)
