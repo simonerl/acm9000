@@ -76,12 +76,15 @@ def motor_module(positionlogg,loop=True):
         #TODO: add number of steps moved to logg
         if not PosX:
             positionlogg.textlog.put("Im sorry Dave,im afraid i cant do that..")
+            time.sleep(0.5)
         else:
             if PosX<112/4:
-                H.step(30,0.01,False)
+                H.step(1,0.01,False)
+                positionlogg.add_steps(1)
                 positionlogg.textlog.put("Stepping Right")
             else:
-                H.step(30,0.01,True)
+                H.step(1,0.01,True)
+                positionlogg.add_steps(-1)
                 positionlogg.textlog.put("Stepping Left")
                 
 def image_module(positionlogg):
