@@ -41,15 +41,14 @@ def PosFunOneD(RGB):
         for i in range(0,k):
                 OneD.append(sum(RGB[:,i]))
         i=0
-        j=k-1
         while not OneD[i]:
                 i+=1
-                if i == k:
+                if i == k-1:
                         return (0,0)
         j=i
         while OneD[j]:
                 j+=1
-                if j == 0:
+                if j == k-1:
                         return (0,0)
                 
         Pos=i+(j-i)/2-k/2
