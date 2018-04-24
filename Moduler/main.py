@@ -83,6 +83,7 @@ def motor_module(positionlogg,loop=True):
     H=Hbrygga()
     while loop:
         PosX = positionlogg.realerror
+        positionlogg.textlog.put(positionlogg.PixelsToSteps(PosX))
         if PosX>10:
             positionlogg.textlog.put(positionlogg.PixelsToSteps(PosX))
             H.step(positionlogg.PixelsToSteps(PosX),0.01,True)
