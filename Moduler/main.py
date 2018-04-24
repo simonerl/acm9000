@@ -111,17 +111,22 @@ def motor_modulev2(positionlogg,loop=True):
             steps=positionlogg.PixelsToSteps(PosX)
             positionlogg.isTurning=True
             while positionlogg.get_realerror() >= 3:
+                t0=time()
                 H.onestep(0.01,True)
                 positionlogg.COV+=1
                 steps-=1
+                positionlogg.textlog.put('Steptime: ' + str(t0-time()))
+                
             positionlogg.isTurning=False
         elif PosX<-10:
             steps=abs(positionlogg.PixelsToSteps(PosX))
             positionlogg.isTurning=True
             while positionlogg.get_realerror() <= -3:
+                t0=time()
                 H.onestep(0.01,False)
                 positionlogg.COV-=1
                 steps-=1
+                positionlogg.textlog.put('Steptime: ' + str(t0-time()))
             positionlogg.isTurning=False
 
                 
@@ -146,7 +151,7 @@ def image_module(positionlogg):
             positionlogg.errorvalue=PosX
             positionlogg.imageposition=currentPos
             positionlogg.isTurning=False #Stop the motor from turning
-        positionlogg.textlog.put(positionlogg.current_position())
+        #positionlogg.textlog.put(positionlogg.current_position())
 
 ###################################################################
     
