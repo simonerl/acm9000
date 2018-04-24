@@ -4,8 +4,8 @@ import RPi.GPIO as GPIO
 import time
 import numpy as np
 from scipy import misc
-import matplotlib.pyplot as plt
-import PIL as Image
+#import matplotlib.pyplot as plt
+#import PIL as Image
 
 
 def GreenFilt(RGB,REF,DivFactor):
@@ -149,8 +149,8 @@ implementsettings(camera)
 H=HBrygga()
 
 while True:
-    Image=takeRGBimage(camera)
-    FiltIm=GreenFilt(Image)
+    image=takeRGBimage(camera)
+    FiltIm=GreenFilt(image)
     [PosX,PosY]=GreenPos(FiltIm)
     if PosX<112/2:
         H.step(10,20,True)
