@@ -73,7 +73,7 @@ def motor_module(positionlogg,loop=True):
     while loop:
         time.sleep(10)
         PosX = positionlogg.errorvalue
-        positionlogg.textlog.enqueue('PosX:'+str(PosX))
+        positionlogg.textlog.put('PosX:'+str(PosX))
         #TODO: add number of steps moved to logg
         if not PosX:
             positionlogg.textlog.put("Im sorry Dave,im afraid i cant do that..")
