@@ -79,15 +79,13 @@ def motor_module(positionlogg,loop=True):
     while loop:
         PosX = positionlogg.errorvalue
         if PosX>10:
-            positionlogg.textlog.put('PosX:'+str(PosX))
-            H.step(1,0.01,False)
+            H.step(PosX,0.01,False)
             positionlogg.add_steps(1)
-            positionlogg.textlog.put("Stepping Right")
         elif PosX<-10:
             positionlogg.textlog.put('PosX:'+str(PosX))
-            H.step(1,0.01,True)
+            H.step(abs(PosX),0.01,True)
             positionlogg.add_steps(-1)
-            positionlogg.textlog.put("Stepping Left")
+
 
                 
 def image_module(positionlogg):
@@ -106,7 +104,7 @@ def image_module(positionlogg):
         #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
         [PosX,PosY]=GreenPos(FiltIm)
         #[PosX,PosY]=PosFunOneD(FiltIm)
-        positionlogg.textlog.put('Position found')
+        positionlogg.textlog.put('Position found: ' + str(PosX))
         positionlogg.errorvalue=PosX
 
 ###################################################################
