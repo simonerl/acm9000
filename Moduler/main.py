@@ -53,12 +53,12 @@ class positionlogg():
         # - Implement so the motor can't turn more than degreelock
         self.COV += steps
         self.errorvalue-=steps #This might write as the same time as image_module(!!!) 
-    def DegreesToSteps(degree):
+    def DegreesToSteps(self,degree):
         steps=round(degree/360*self.steprevolution)
         return steps
-    def StepsToDegrees(steps):
+    def StepsToDegrees(self,steps):
         degree=round(steps/self.steprevolution*360)
-    def PixelsToSteps(pixels):
+    def PixelsToSteps(self,pixels):
         steps= round(pixels/self.camerawidth*self.cameraFOV_steps)
         return int(steps)
 def init_threaded_modules():
