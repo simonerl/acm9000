@@ -99,7 +99,7 @@ def image_module(positionlogg):
         positionlogg.textlog.put('Filtering')
         #misc.imsave('TestPic' +str(n)+'.jpeg', image)
         #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
-        [PosX,PosY]=PosFunOneD(FiltIm)
+        [PosX,PosY]=GreenPos(FiltIm)
         positionlogg.textlog.put('Position found')
         positionlogg.errorvalue=PosX
 
