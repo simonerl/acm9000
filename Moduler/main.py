@@ -68,39 +68,39 @@ def init_threaded_modules():
 ###################################################
 def motor_module(positionlogg,loop=True):
     """Motor module that runs the motor on a thread"""
-    positionlogg.logtex.enqueue('Initializing motor module')
+    positionlogg.textlog.enqueue('Initializing motor module')
     H=Hbrygga()
     while loop:
         time.sleep(10)
         PosX = positionlogg.errorvalue
-        positionlogg.logtex.enqueue('PosX:'+str(PosX))
+        positionlogg.textlog.enqueue('PosX:'+str(PosX))
         #TODO: add number of steps moved to logg
         if not PosX:
-            positionlogg.logtex.enqueue("Im sorry Dave,im afraid i cant do that..")
+            positionlogg.textlog.enqueue("Im sorry Dave,im afraid i cant do that..")
         else:
             if PosX<112/4:
                 H.step(30,0.01,False)
-                positionlogg.logtex.enqueue("Stepping Right")
+                positionlogg.textlog.enqueue("Stepping Right")
             else:
                 H.step(30,0.01,True)
-                positionlogg.logtex.enqueue("Stepping Left")
+                positionlogg.textlog.enqueue("Stepping Left")
                 
 def image_module(positionlogg):
     """Image module that takes care of taking images with the camera and processing it"""
-    positionlogg.logtex.enqueue('Initializing image module')
+    positionlogg.textlog.enqueue('Initializing image module')
     camera=picamera.PiCamera()
     implementsettings(camera)
     while True:
         image=takeRGBimage(camera).array
         currentPos=positionlogg.COV #So we know where the image was taken
-        positionlogg.logtex.enqueue('Taking picture at' + str(currentPos))
+        positionlogg.textlog.enqueue('Taking picture at' + str(currentPos))
         im2=image.copy()
         FiltIm=GreenFilt(im2,[100,210,100],10)
-        positionlogg.logtex.enqueue('Filtering')
+        positionlogg.textlog.enqueue('Filtering')
         #misc.imsave('TestPic' +str(n)+'.jpeg', image)
         #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
         [PosX,PosY]=GreenPos(FiltIm)
-        positionlogg.logtex.enqueue('Position found')
+        positionlogg.textlog.enqueue('Position found')
         positionlogg.errorvalue=PosX
 
 ###################################################################
@@ -111,6 +111,6 @@ if __name__=="__main__":
     print('Setting up modules')
     init_threaded_modules()
     while True:
-        if pl.logtext:
-            print(pl.logtext.dequeue())
+        if pl.textlog:
+            print(pl.textlog.dequeue())
     
