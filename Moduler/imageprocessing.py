@@ -25,7 +25,7 @@ def GreenFilt(RGB,REF,DivFactor):
                                 RGB[i,j,:]=0 
                         elif RGB[i,j,2]/(RGB[i,j,1]+1)>1.8*REF[2]/(REF[1]+1) or RGB[i,j,0]/(RGB[i,j,1]+1)>1.8*REF[0]/REF[1]:
                                 RGB[i,j,:]=0                 
-        return RGB
+        return RGB[:,:,1]
 
 def GreenPos(RGB): #En ide är att lägga in denna funktionalitet i Greenfilt för  att inte göra massa dubbelt arbete
         [m,k]=RGB.shape[0:2]
