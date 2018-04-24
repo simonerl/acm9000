@@ -54,7 +54,7 @@ def init_threaded_modules():
     motorThread.daemon=False #Will termiate when main-thread ends
     motorThread.start()
     #New image module thread 
-    motorThread=threading.Thread(target = image_module, args(pl))
+    motorThread=threading.Thread(target = image_module, args=(pl))
     motorThread.daemon=False #Will termiate when main-thread ends
     motorThread.start()
     
