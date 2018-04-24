@@ -95,6 +95,6 @@ def image_module(positionlogg):
     
 if __name__=="__main__":
     print('Setting up logg')
-    pl=positionslogg()
+    pl=positionlogg()
     init_threaded_modules()            
     
