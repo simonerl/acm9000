@@ -105,17 +105,18 @@ def image_module(positionlogg):
     while True:
         image=takeRGBimage(camera).array
         currentPos=positionlogg.COV #So we know where the image was taken
-        positionlogg.textlog.put('Taking picture at ' + str(currentPos))
+        #positionlogg.textlog.put('Taking picture at ' + str(currentPos))
         im2=image.copy()
         FiltIm=GreenFilt(im2,[100,210,100],10)
-        positionlogg.textlog.put('Filtering')
+        #positionlogg.textlog.put('Filtering')
         #misc.imsave('TestPic' +str(n)+'.jpeg', image)
         #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
         #[PosX,PosY]=GreenPos(FiltIm)
         [PosX,PosY]=PosFunOneD(FiltIm)
-        positionlogg.textlog.put('Position found: ' + str(PosX))
-        positionlogg.errorvalue=PosX
-        positionlogg.imageposition=currentPos
+        #positionlogg.textlog.put('Position found: ' + str(PosX))
+        if not PosX
+            positionlogg.errorvalue=PosX
+            positionlogg.imageposition=currentPos
         positionlogg.textlog.put(positionlogg.current_position())
 
 ###################################################################
