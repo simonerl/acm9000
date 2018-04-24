@@ -42,7 +42,6 @@ def PosFunOneD(RGB):
                 OneD.append(sum(RGB[:,i]))
         i=0
         j=k-1
-        print(OneD)
         while not OneD[i]:
                 i+=1
                 if i == k:
