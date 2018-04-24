@@ -51,7 +51,7 @@ class positionlogg():
         # - Make this thread-secured
         # - Implement so the motor can't turn more than degreelock
         self.COV += steps
-        self.errorvalue-=steps #This might write as the same time as image_module(!!!)
+        #self.errorvalue-=steps #This might write as the same time as image_module(!!!)
         
     def DegreesToSteps(self,degree):
         steps=round(degree/360*self.steprevolution)
