@@ -91,7 +91,7 @@ def motor_module(positionlogg,loop=True):
         PosX = positionlogg.get_realerror()
         if PosX>10:
             steps=positionlogg.PixelsToSteps(PosX)
-            t0=time()
+            t0=time.time()
             while steps>0:
                 H.onestep(0.01,True)
                 positionlogg.COV+=1
@@ -113,22 +113,20 @@ def motor_modulev2(positionlogg,loop=True):
             steps=positionlogg.PixelsToSteps(PosX)
             positionlogg.isTurning=True
             while positionlogg.get_realerror() >= 3:
-                t0=time()
+
                 H.onestep(0.01,True)
                 positionlogg.COV+=1
                 steps-=1
-                positionlogg.textlog.put('Steptime: ' + str(t0-time()))
                 
             positionlogg.isTurning=False
         elif PosX<-10:
             steps=abs(positionlogg.PixelsToSteps(PosX))
             positionlogg.isTurning=True
             while positionlogg.get_realerror() <= -3:
-                t0=time()
                 H.onestep(0.01,False)
                 positionlogg.COV-=1
                 steps-=1
-                positionlogg.textlog.put('Steptime: ' + str(t0-time()))
+
             positionlogg.isTurning=False
 
                 
