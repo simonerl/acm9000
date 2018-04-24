@@ -64,7 +64,9 @@ class positionlogg():
         return int(steps)
     def get_realerror(self):
         return self.imageposition+self.errorvalue-self.COV #Error value from the current position
-    
+    def current_position(self):
+        text='COV: ' + str(self.COV) +'\nerrorvalue: ' + str(self.errorvalue) + '\nimageposition: ' + str(self.imageposition) + '\nrealerror: ' + str(self.get_realerror())
+        return
 def init_threaded_modules():
     #New motor module thread 
     motorThread=threading.Thread(target = motor_module, args=(pl,True))
@@ -114,6 +116,7 @@ def image_module(positionlogg):
         positionlogg.textlog.put('Position found: ' + str(PosX))
         positionlogg.errorvalue=PosX
         positionlogg.imageposition=currentPos
+        positionlogg.textlog.put(positionlogg.current_position())
 
 ###################################################################
     
