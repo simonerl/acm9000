@@ -26,7 +26,7 @@ class positionlogg():
         #TODO: Change settings so it fits with the transmission
         self.gearratio=5 #Transmission constant
         self.motor_steprevolution=200 #Number of steps per revolution for the motor only
-        self.steprevolution=self.motor_steprevolution*gearratio #Number of steps per revolution
+        self.steprevolution=self.motor_steprevolution*self.gearratio #Number of steps per revolution
         self.degreelock=180 #How many degrees the motor should be able to turn
         self.camerawidth=112 #!!!This should be assigned with/based on camera.resoution!!!
         self.cameraFOV=62#!!!SHOW THAT THIS IS THE CASE!!! #Camera Field Of View (degrees)
