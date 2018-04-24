@@ -24,12 +24,14 @@ class positionlogg():
         #CONSTANTS#
         ###########
         #TODO: Change settings so it fits with the transmission
-        self.steprevolution=200 #Number of steps per revolution
+        self.gearratio=5 #Transmission constant
+        self.motor_steprevolution=200 #Number of steps per revolution for the motor only
+        self.steprevolution=motor_steprevolution*gearratio #Number of steps per revolution
         self.degreelock=180 #How many degrees the motor should be able to turn
-        self.camerawidth= 0 #!!!This should be assigned with/based on camera.resoution!!!
-        self.cameraFOV=67#!!!SHOW THAT THIS IS THE CASE!!! #Camera Field Of View (degrees)
+        self.camerawidth=112 #!!!This should be assigned with/based on camera.resoution!!!
+        self.cameraFOV=62#!!!SHOW THAT THIS IS THE CASE!!! #Camera Field Of View (degrees)
         self.cameraFOV_steps=self.cameraFOV//360*self.steprevolution #Camera Field Of View measured in steps
-        self.cameraFOV_pixels=self.cameraFOV//360*self.camerawidth #Camera Field Of View measured in pixels
+        #self.cameraFOV_pixels=self.cameraFOV//360*self.camerawidth #Camera Field Of View measured in pixels
         self.steplock=self.degreelock/360*self.steprevolution #How many steps the motor should be able to turn
 
         #TODO: Setup code here where user puts the step motor in the middle 90 degrees (or 50 steps)
@@ -51,7 +53,11 @@ class positionlogg():
         # - Implement so the motor can't turn more than degreelock
         self.COV += steps
         self.errorvalue-=steps #This might write as the same time as image_module(!!!) 
-        
+    def DegreesToSteps(degree):
+        steps=round(degree/360*self.steprevolution)
+        return steps
+    def StepsToDegrees(steps):
+        degree=round(steps/self.steprevolution*360)
     
 def init_threaded_modules():
     #New motor module thread 
@@ -72,19 +78,22 @@ def motor_module(positionlogg,loop=True):
     H=Hbrygga()
     while loop:
         PosX = positionlogg.errorvalue
-        positionlogg.textlog.put('PosX:'+str(PosX))
         if not PosX:
+            positionlogg.textlog.put('PosX:'+str(PosX))
             positionlogg.textlog.put("Im sorry Dave,im afraid i cant do that..")
-            time.sleep(0.5)
+
         else:
             if PosX>10:
+                positionlogg.textlog.put('PosX:'+str(PosX))
                 H.step(1,0.01,False)
                 positionlogg.add_steps(1)
                 positionlogg.textlog.put("Stepping Right")
             elif PosX<-10:
+                positionlogg.textlog.put('PosX:'+str(PosX))
                 H.step(1,0.01,True)
                 positionlogg.add_steps(-1)
                 positionlogg.textlog.put("Stepping Left")
+        time.sleep(0.5)
                 
 def image_module(positionlogg):
     """Image module that takes care of taking images with the camera and processing it"""
