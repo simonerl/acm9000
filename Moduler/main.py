@@ -30,8 +30,7 @@ class positionlogg():
         self.degreelock=180 #How many degrees the motor should be able to turn
         self.camerawidth=112 #!!!This should be assigned with/based on camera.resoution!!!
         self.cameraFOV=62#!!!SHOW THAT THIS IS THE CASE!!! #Camera Field Of View (degrees)
-        self.cameraFOV_steps=self.cameraFOV//360*self.steprevolution #Camera Field Of View measured in steps
-        #self.cameraFOV_pixels=self.cameraFOV//360*self.camerawidth #Camera Field Of View measured in pixels
+        self.cameraFOV_steps=round(self.cameraFOV/360*self.steprevolution) #Camera Field Of View measured in steps
         self.steplock=self.degreelock/360*self.steprevolution #How many steps the motor should be able to turn
 
         #TODO: Setup code here where user puts the step motor in the middle 90 degrees (or 50 steps)
@@ -58,6 +57,7 @@ class positionlogg():
         return steps
     def StepsToDegrees(self,steps):
         degree=round(steps/self.steprevolution*360)
+        
     def PixelsToSteps(self,pixels):
         steps= round(pixels/self.camerawidth*self.cameraFOV_steps)
         return int(steps)
