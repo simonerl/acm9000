@@ -18,7 +18,7 @@ import time
 #TODO: Logg for images and position etc
 
 class positionlogg():
-    def __init__():
+    def __init__(self):
         ###########
         #CONSTANTS#
         ###########
@@ -38,7 +38,7 @@ class positionlogg():
         self.COV = self.steprevolution//4 #Current Center Of View (Position from left border position to center of view)
         self.errorvalue=0 #Where the measured value is compared to the current COV
         
-    def add_steps(steps):
+    def add_steps(self,steps):
         """Adding steps the motor has moved: positive to the right, negative to the left"""
         #TODO:
         # - Make this thread-secured
