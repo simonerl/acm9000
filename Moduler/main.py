@@ -93,7 +93,7 @@ def motor_module(positionlogg,loop=True):
                 H.step(1,0.01,True)
                 positionlogg.add_steps(-1)
                 positionlogg.textlog.put("Stepping Left")
-        time.sleep(0.5)
+
                 
 def image_module(positionlogg):
     """Image module that takes care of taking images with the camera and processing it"""
