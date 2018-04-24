@@ -71,7 +71,6 @@ def motor_module(positionlogg,loop=True):
     positionlogg.textlog.put('Initializing motor module')
     H=Hbrygga()
     while loop:
-        time.sleep(10)
         PosX = positionlogg.errorvalue
         positionlogg.textlog.put('PosX:'+str(PosX))
         #TODO: add number of steps moved to logg
@@ -93,7 +92,7 @@ def image_module(positionlogg):
     while True:
         image=takeRGBimage(camera).array
         currentPos=positionlogg.COV #So we know where the image was taken
-        positionlogg.textlog.put('Taking picture at' + str(currentPos))
+        positionlogg.textlog.put('Taking picture at ' + str(currentPos))
         im2=image.copy()
         FiltIm=GreenFilt(im2,[100,210,100],10)
         positionlogg.textlog.put('Filtering')
