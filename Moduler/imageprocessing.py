@@ -49,7 +49,7 @@ def PosFunOneD(RGB):
         j=i
         while OneD[j]:
                 j+=1
-                if j == r:
+                if j == 0:
                         return (0,0)
                 
         Pos=i+(j-i)/2-k/2
