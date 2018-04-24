@@ -16,14 +16,20 @@ import time
 import queue
 
 #########################################
-#TODO: Logg for images and position etc
+#   TODO:
+# - Logg for images and position etc
+# - Check that units are consitent
+# - Optimize for performance
+# - Major cleanup
+# - Setup code where user puts the step motor in the middle 90 degrees
+# - Implement a degree lock so the motor can't turn more than 180 degrees
+##########################################
 
 class positionlogg():
     def __init__(self):
         ###########
         #CONSTANTS#
         ###########
-        #TODO: Change settings so it fits with the transmission
         self.gearratio=5 #Transmission constant
         self.motor_steprevolution=200 #Number of steps per revolution for the motor only
         self.steprevolution=self.motor_steprevolution*self.gearratio #Number of steps per revolution
@@ -43,32 +49,26 @@ class positionlogg():
         #######
         #OTHER#
         #######
-        self.textlog=queue.Queue()
-    def add_steps(self,steps):
-        """Adding steps the motor has moved: positive to the right, negative to the left"""
-        #TODO:
-        # - Make this thread-secured
-        # - Implement so the motor can't turn more than degreelock
-        self.COV += steps
-        #self.errorvalue-=steps #This might write as the same time as image_module(!!!)
-    def add_step(self):
-        self.COV += 1
-    def subtract_step(self):
-        self.COV -= 1
+        self.textlog=queue.Queue() #Used to write things
+        
     def DegreesToSteps(self,degree):
         steps=round(degree/360*self.steprevolution)
         return steps
+    
     def StepsToDegrees(self,steps):
         degree=round(steps/self.steprevolution*360)
         
     def PixelsToSteps(self,pixels):
         steps= round(pixels/self.camerawidth*self.cameraFOV_steps)
         return int(steps)
+    
     def get_realerror(self):
         return self.imageposition+self.errorvalue-self.COV #Error value from the current position
+    
     def current_position(self):
         text='COV: ' + str(self.COV) +'\nerrorvalue: ' + str(self.errorvalue) + '\nimageposition: ' + str(self.imageposition) + '\nrealerror: ' + str(self.get_realerror())
         return text
+    
 def init_threaded_modules():
     #New motor module thread 
     motorThread=threading.Thread(target = motor_module, args=(pl,True))
@@ -82,9 +82,10 @@ def init_threaded_modules():
 ###################################################
 #TODO: Modules must be MORE prefabricated. They should come i already packed functions. Think modularization... 
 ###################################################
+    
 def motor_module(positionlogg,loop=True):
     """Motor module that runs the motor on a thread"""
-    positionlogg.textlog.put('Initializing (old) motor module')
+    positionlogg.textlog.put('Initializing motor module')
     H=Hbrygga()
     while loop:
         PosX = positionlogg.get_realerror() #In steps
@@ -101,32 +102,6 @@ def motor_module(positionlogg,loop=True):
                 H.onestep(0.02,False)
                 positionlogg.COV-=1
                 steps-=1
-def motor_modulev2(positionlogg,loop=True):
-    """Motor module that runs the motor on a thread"""
-    positionlogg.textlog.put('Initializing motor module')
-    H=Hbrygga()
-    while loop:
-        PosX = positionlogg.get_realerror()
-        if PosX>10:
-            steps=positionlogg.PixelsToSteps(PosX)
-            positionlogg.isTurning=True
-            while positionlogg.get_realerror() >= 3:
-
-                H.onestep(0.01,True)
-                positionlogg.COV+=1
-                steps-=1
-                
-            positionlogg.isTurning=False
-        elif PosX<-10:
-            steps=abs(positionlogg.PixelsToSteps(PosX))
-            positionlogg.isTurning=True
-            while positionlogg.get_realerror() <= -3:
-                H.onestep(0.01,False)
-                positionlogg.COV-=1
-                steps-=1
-
-            positionlogg.isTurning=False
-
                 
 def image_module(positionlogg):
     """Image module that takes care of taking images with the camera and processing it"""
