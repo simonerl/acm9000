@@ -35,7 +35,21 @@ def GreenPos(RGB): #En ide är att lägga in denna funktionalitet i Greenfilt f�
                         GPos=(GPos+(RGB[i,j]*np.array([i,j])))  
         Pos=np.around(GPos/np.sum(RGB))
         return (int(Pos[0]),int(Pos[1]))
-
+def PosFunOneD(RGB):
+        [r,k]=RGB.shape[0:2]
+        OneD=[]
+        for i in range(0,k):
+                OneD.append(sum(RGB[:,i]))
+        i=0
+        j=k-1
+        while not(OneD[i]):
+                i+=1
+        while not(OneD[j]):
+                j-=1
+        Pos=((j-1)-(i+1))/2+i+1;
+        return Pos
+                
+                
 ##img = misc.imread("test.jpeg")#image2.jpg test.jpeg
 ##
 ##arr = np.array(img)
