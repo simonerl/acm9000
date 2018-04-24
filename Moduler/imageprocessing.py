@@ -37,7 +37,7 @@ def GreenPos(RGB): #En ide är att lägga in denna funktionalitet i Greenfilt f�
         return (int(Pos[0]),int(Pos[1]))
 def PosFunOneD(RGB):
         [r,k]=RGB.shape[0:2]
-        OneD=[]
+        OneD=[] 
         for i in range(0,k):
                 OneD.append(sum(RGB[:,i]))
         i=0
@@ -50,6 +50,9 @@ def PosFunOneD(RGB):
         j=i
         while OneD[j]:
                 j+=1
+                if j == r:
+                        return (0,0)
+                
         Pos=i+(j-i)/2-k/2
         return (Pos,0)
                 
