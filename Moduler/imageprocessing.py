@@ -47,7 +47,7 @@ def PosFunOneD(RGB):
         while not(OneD[j]):
                 j-=1
         Pos=((j-1)-(i+1))/2+i+1;
-        return Pos
+        return (0,Pos)
                 
                 
 ##img = misc.imread("test.jpeg")#image2.jpg test.jpeg
