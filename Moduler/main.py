@@ -40,7 +40,6 @@ class positionlogg():
         self.COV = self.steprevolution//4 #Current Center Of View (Position from left border position to center of view)
         self.errorvalue=0 #Where the measured value is compared to the last image taken (image position)
         self.imageposition=self.steprevolution//4 # Where the latest images was taken
-        self.realerror=self.imageposition+self.errorvalue-self.COV #Error value from the current position
         #######
         #OTHER#
         #######
@@ -63,6 +62,8 @@ class positionlogg():
     def PixelsToSteps(self,pixels):
         steps= round(pixels/self.camerawidth*self.cameraFOV_steps)
         return int(steps)
+    def get_realerror(self):
+        return self.imageposition+self.errorvalue-self.COV #Error value from the current position
     
 def init_threaded_modules():
     #New motor module thread 
@@ -82,8 +83,7 @@ def motor_module(positionlogg,loop=True):
     positionlogg.textlog.put('Initializing motor module')
     H=Hbrygga()
     while loop:
-        PosX = positionlogg.realerror
-        positionlogg.textlog.put(positionlogg.PixelsToSteps(PosX))
+        PosX = positionlogg.get_realerror
         if PosX>10:
             positionlogg.textlog.put(positionlogg.PixelsToSteps(PosX))
             H.step(positionlogg.PixelsToSteps(PosX),0.01,True)
