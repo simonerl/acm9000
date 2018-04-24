@@ -114,7 +114,7 @@ def image_module(positionlogg):
         #[PosX,PosY]=GreenPos(FiltIm)
         [PosX,PosY]=PosFunOneD(FiltIm)
         #positionlogg.textlog.put('Position found: ' + str(PosX))
-        if not PosX:
+        if PosX:
             positionlogg.errorvalue=PosX
             positionlogg.imageposition=currentPos
         positionlogg.textlog.put(positionlogg.current_position())
