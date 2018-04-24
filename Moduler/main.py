@@ -79,11 +79,11 @@ def motor_module(positionlogg,loop=True):
     while loop:
         PosX = positionlogg.errorvalue
         if PosX>10:
-            H.step(PosX,0.01,False)
+            H.step(int(PosX),0.01,False)
             positionlogg.add_steps(PosX)
         elif PosX<-10:
             positionlogg.textlog.put('PosX:'+str(PosX))
-            H.step(abs(PosX),0.01,True)
+            H.step(int(abs(PosX)),0.01,True)
             positionlogg.add_steps(PosX)
 
 
