@@ -100,7 +100,7 @@ def motor_module(positionlogg,loop=True):
         elif PosX<-10:
             steps=abs(positionlogg.PixelsToSteps(PosX))
             positionlogg.isTurning=True
-            while positionlogg.isTurning and steps<0:
+            while positionlogg.isTurning and steps>0:
                 H.onestep(0.01,False)
                 positionlogg.COV-=1
                 steps-=1
