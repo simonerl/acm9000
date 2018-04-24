@@ -65,12 +65,13 @@ def motor_module(positionlogg,loop=True):
     """Motor module that runs the motor on a thread"""
     H=Hbrygga()
     while loop:
+        time.sleep(10)
         PosX = positionlogg.errorvalue
+        print('PosX:',PosX)
         #TODO: add number of steps moved to logg
         if not PosX:
             print("Im sorry Dave,im afraid i cant do that..")
         else:
-            print('PosX:',PosX)
             if PosX<112/4:
                 H.step(30,0.01,False)
                 print("Stepping Right")
