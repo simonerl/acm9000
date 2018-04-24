@@ -78,22 +78,17 @@ def motor_module(positionlogg,loop=True):
     H=Hbrygga()
     while loop:
         PosX = positionlogg.errorvalue
-        if not PosX:
+        if PosX>10:
             positionlogg.textlog.put('PosX:'+str(PosX))
-            positionlogg.textlog.put("Im sorry Dave,im afraid i cant do that..")
+            H.step(1,0.01,False)
+            positionlogg.add_steps(1)
+            positionlogg.textlog.put("Stepping Right")
+        elif PosX<-10:
+            positionlogg.textlog.put('PosX:'+str(PosX))
+            H.step(1,0.01,True)
+            positionlogg.add_steps(-1)
+            positionlogg.textlog.put("Stepping Left")
 
-        else:
-            if PosX>10:
-                positionlogg.textlog.put('PosX:'+str(PosX))
-                H.step(1,0.01,False)
-                positionlogg.add_steps(1)
-                positionlogg.textlog.put("Stepping Right")
-            elif PosX<-10:
-                positionlogg.textlog.put('PosX:'+str(PosX))
-                H.step(1,0.01,True)
-                positionlogg.add_steps(-1)
-                positionlogg.textlog.put("Stepping Left")
-        time.sleep(0.5)
                 
 def image_module(positionlogg):
     """Image module that takes care of taking images with the camera and processing it"""
