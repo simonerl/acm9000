@@ -44,7 +44,7 @@ class positionlogg():
         #OTHER#
         #######
         self.textlog=queue.Queue()
-        
+        self.isTurning=False
     def add_steps(self,steps):
         """Adding steps the motor has moved: positive to the right, negative to the left"""
         #TODO:
@@ -52,7 +52,10 @@ class positionlogg():
         # - Implement so the motor can't turn more than degreelock
         self.COV += steps
         #self.errorvalue-=steps #This might write as the same time as image_module(!!!)
-        
+    def add_step(self):
+        self.COV += 1
+    def subtract_step(self):
+        self.COV -= 1
     def DegreesToSteps(self,degree):
         steps=round(degree/360*self.steprevolution)
         return steps
@@ -87,13 +90,23 @@ def motor_module(positionlogg,loop=True):
     while loop:
         PosX = positionlogg.get_realerror()
         if PosX>10:
-            positionlogg.textlog.put(positionlogg.PixelsToSteps(PosX))
-            H.step(positionlogg.PixelsToSteps(PosX),0.001,True)
-            positionlogg.add_steps(PosX)
+            steps=positionlogg.PixelsToSteps(PosX)
+            positionlogg.textlog.put(steps)
+            positionlogg.isTurning=True
+            while positionlogg.isTurning and steps>0:
+                H.onestep(0.01,True)
+                positionlogg.COV+=1
+                steps-=1
+            positionlogg.isTurning=False
         elif PosX<-10:
-            positionlogg.textlog.put(positionlogg.PixelsToSteps(PosX))
-            H.step(positionlogg.PixelsToSteps(abs(PosX)),0.001,False)
-            positionlogg.add_steps(PosX)
+            steps=abs(positionlogg.PixelsToSteps(PosX))
+            positionlogg.textlog.put(steps)
+            positionlogg.isTurning=True
+            while positionlogg.isTurning and steps<0:
+                H.onestep(0.01,False)
+                positionlogg.COV-=1
+                steps+=1
+            positionlogg.isTurning=False
 
 
                 
@@ -117,6 +130,7 @@ def image_module(positionlogg):
         if PosX:
             positionlogg.errorvalue=PosX
             positionlogg.imageposition=currentPos
+            positionlogg.isTurning=False #STop the motor from turning
         positionlogg.textlog.put(positionlogg.current_position())
 
 ###################################################################
