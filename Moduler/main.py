@@ -13,6 +13,7 @@ from imageshooter import *
 from motorstyrning import *
 from imageprocessing import *
 import time
+#import queue
 
 #########################################
 #TODO: Logg for images and position etc
@@ -50,11 +51,11 @@ class positionlogg():
 def init_threaded_modules():
     #New motor module thread 
     motorThread=threading.Thread(target = motor_module, args=(pl,True))
-    motorThread.daemon=True #Will termiate when main-thread ends
+    motorThread.daemon=False #Will termiate when main-thread ends
     motorThread.start()
     #New image module thread 
     motorThread=threading.Thread(target = image_module)
-    motorThread.daemon=True #Will termiate when main-thread ends
+    motorThread.daemon=False #Will termiate when main-thread ends
     motorThread.start()
     
 ###################################################
@@ -96,5 +97,8 @@ def image_module(positionlogg):
 if __name__=="__main__":
     print('Setting up logg')
     pl=positionlogg()
-    init_threaded_modules()            
+    print('Setting up modules')
+    init_threaded_modules()
+    while True:
+        time.sleep(1000)
     
