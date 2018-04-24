@@ -152,15 +152,24 @@ implementsettings(camera)
 H=Hbrygga()
 n=0;
 while True:
+    t1=time.time()
     n+=1;
     image=takeRGBimage(camera).array
     im2=image.copy()
+    t2=time.time()
+    print('Taking an imagetakes: '+str(t2-t1))
+    t3=time.time()
     FiltIm=GreenFilt(im2,[100,210,100],10)
-    
-    misc.imsave('TestPic' +str(n)+'.jpeg', image)
-    misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
-    
+    t4=time.time()
+    t43=t4-t3
+    print('The GreenFilt takes: '+ str(t43))
+    #misc.imsave('TestPic' +str(n)+'.jpeg', image)
+    #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
+    t5=time.time()
     Pos=GreenPos(FiltIm)
+    t6=time.time()
+    t65=t6-t5
+    print( 'The GreenPos takes: ' + str(t65))
     if not Pos:
         print("Im sorry Dave,im afraid i cant do that..")
     else:
@@ -173,6 +182,12 @@ while True:
         else:
             H.step(30,0.01,True)
             print("Stepping Left")
+        t7=time.time()
+        t=t7-t1
+        print('Calculation time was: ' + str(t))
+##    H.step(3000,0.01,False)
+##    H.step(3000,0.01,True)
+    
     
         
     
