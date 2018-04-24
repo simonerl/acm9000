@@ -83,9 +83,9 @@ def init_threaded_modules():
 ###################################################
 #TODO: Modules must be MORE prefabricated. They should come i already packed functions. Think modularization... 
 ###################################################
-def motor_module(positionlogg,loop=True):
+def old_motor_module(positionlogg,loop=True):
     """Motor module that runs the motor on a thread"""
-    positionlogg.textlog.put('Initializing motor module')
+    positionlogg.textlog.put('Initializing (old) motor module')
     H=Hbrygga()
     while loop:
         PosX = positionlogg.get_realerror()
@@ -105,7 +105,28 @@ def motor_module(positionlogg,loop=True):
                 positionlogg.COV-=1
                 steps-=1
             positionlogg.isTurning=False
-
+def motor_module(positionlogg,loop=True):
+    """Motor module that runs the motor on a thread"""
+    positionlogg.textlog.put('Initializing motor module')
+    H=Hbrygga()
+    while loop:
+        PosX = positionlogg.get_realerror()
+        if PosX>10:
+            steps=positionlogg.PixelsToSteps(PosX)
+            positionlogg.isTurning=True
+            while positionlogg.get_realerror() > 0:
+                H.onestep(0.01,True)
+                positionlogg.COV+=1
+                steps-=1
+            positionlogg.isTurning=False
+        elif PosX<-10:
+            steps=abs(positionlogg.PixelsToSteps(PosX))
+            positionlogg.isTurning=True
+            while positionlogg.get_realerror() < 0:
+                H.onestep(0.01,False)
+                positionlogg.COV-=1
+                steps-=1
+            positionlogg.isTurning=False
 
                 
 def image_module(positionlogg):
