@@ -15,7 +15,7 @@ from imageprocessing import *
 import time
 
 #########################################
-
+#TODO: Logg for images and position etc
 
 class positionlogg():
     def __init__():
@@ -62,6 +62,7 @@ def init_threaded_modules():
 ###################################################
 def motor_module(positionlogg,loop=True):
     """Motor module that runs the motor on a thread"""
+    H=Hbrygga()
     while loop:
         PosX = positionlogg.errorvalue
         #TODO: add number of steps moved to logg
@@ -80,8 +81,6 @@ def image_module(positionlogg):
     """Image module that takes care of taking images with the camera and processing it"""
     camera=picamera.PiCamera()
     implementsettings(camera)
-    H=Hbrygga()
-    n=0;
     while True:
         image=takeRGBimage(camera).array
         currentPos=positionlogg.position #So we know where the image was taken
