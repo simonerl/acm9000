@@ -2,7 +2,7 @@
 # Kod för styrning av motor/motorer med en        #
 # krets med L298N och en raspberry pi:s GPIO-pins.#
 # Av: Simon Erlandsson                            #
-# Version: 2.0:2018-03-27                         #
+# Version: 2.1:2018-04-24                         #
 ###################################################
 import RPi.GPIO as GPIO
 import time
@@ -57,6 +57,12 @@ class Hbrygga:
         for i in range(steps):
             self.nextState(turnclockwise)
             time.sleep(s_delay)
+
+    def onestep(self, s_delay, turnclockwise):
+        """Ta ett steg, med s_delay efter, med eller mot klockan.)"""
+        #s_delay: Hur många sekunder mellan varje steg
+        self.nextState(turnclockwise)
+        time.sleep(s_delay)
 
     def nextState(self, turnclockwise):
         """Sätter nästa state på motorn beroende på om den ska röra sig med eller mot klockan"""
