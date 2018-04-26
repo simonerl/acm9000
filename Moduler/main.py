@@ -22,7 +22,7 @@ import queue
 # - Optimize for performance
 # - Major cleanup
 # - Setup code where user puts the step motor in the middle 90 degrees
-# (- Implement a degree lock so the motor can't turn more than 180 degrees) Do we really want this?
+# - Be able to change basic settings on the fly, in the main program, such as reference color and resolution etc.
 ##########################################
 
 class positionlogg():
