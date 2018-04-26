@@ -122,10 +122,10 @@ def image_module(positionlogg):
             #positionlogg.textlog.put('Taking picture at ' + str(currentPos))
             im2=image.copy()
             t3=time.time()
-            [(0,100),(180,255),(0,100)]
+            
             #---REPLACE WITH-------
             #FiltIm=OldGreenFilt(im2,[100,210,100],10)
-            FiltIm=GreenFilt(im2,[(0,100),(180,255),(0,100)])
+            FiltIm=GreenFilt(im2,[(0,120),(150,255),(0,120)])
             t4=time.time()
             [PosX,PosY]=PosFunOneD(FiltIm)
             #---THIS:--------------
