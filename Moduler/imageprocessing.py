@@ -99,12 +99,12 @@ if __name__=="__main__":
         REF=[100,200,100]
 
 
-        Gim=GreenFilt(RGB,[(0,100),(180,255),(0,100)])
+        #Gim=GreenFilt(RGB,[(0,100),(180,255),(0,100)])
 
-        Pos=GreenPos(Gim[:,:,1])
+        #Pos=GreenPos(Gim[:,:,1])
 
-        Gim[Pos]=[255,0,0]
-        print(Pos)
+        #Gim[Pos]=[255,0,0]
+        #print(Pos)
         
         misc.imsave("test.jpeg",Gim)
 
