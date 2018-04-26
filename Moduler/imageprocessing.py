@@ -37,8 +37,8 @@ def GreenFilt(RGB,REF):
         #[(0,100),(180,255),(0,100)]
         
         red_range = np.logical_and(REF[0][0] < RGB[:,:,0], RGB[:,:,0] < REF[0][1])
-        green_range = np.logical_and(REF[1][0] < RGB[:,:,0], RGB[:,:,0] < REF[1][1])
-        blue_range = np.logical_and(REF[2][0] < RGB[:,:,0], RGB[:,:,0] < REF[2][1])
+        green_range = np.logical_and(REF[1][0] < RGB[:,:,1], RGB[:,:,1] < REF[1][1])
+        blue_range = np.logical_and(REF[2][0] < RGB[:,:,2], RGB[:,:,2] < REF[2][1])
         valid_range = np.logical_and(red_range, green_range, blue_range)
 
         RGB[valid_range] = 255                  #Output color value if true (all channels)
