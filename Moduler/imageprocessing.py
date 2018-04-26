@@ -88,7 +88,7 @@ if __name__=="__main__":
         #For testing purposes
         #import matplotlib.pyplot as plt
         import PIL as Image
-        from imageshooter as *
+        from imageshooter import *
         #img = misc.imread("test.jpeg")#image2.jpg test.jpeg
         camera=picamera.PiCamera()
         implementsettings(camera)
