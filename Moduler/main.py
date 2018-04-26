@@ -131,13 +131,13 @@ def image_module(positionlogg):
             positionlogg.imageposition=currentPos
         t6=time.time()
         #positionlogg.textlog.put(positionlogg.current_position())
-        
-        positionlogg.textlog.put('takeRgbimage(camera).array: ' + str(t0-t1))
-        positionlogg.textlog.put('currentPos=positionlogg.COV: ' + str(t1-t2))
-        positionlogg.textlog.put('image.copy(): ' + str(t2-t3))
-        positionlogg.textlog.put('GreenFilt: ' + str(t3-t4))
-        positionlogg.textlog.put('PosFunOneD: ' + str(t4-t5))
-        positionlogg.textlog.put('if abs(PosX)>10: ' + str(t4-t5))
+        positionlogg.textlog.put('###########################################')
+        positionlogg.textlog.put('takeRgbimage(camera).array: ' + str(t1-t0))
+        positionlogg.textlog.put('currentPos=positionlogg.COV: ' + str(t2-t1))
+        positionlogg.textlog.put('image.copy(): ' + str(t3-t2))
+        positionlogg.textlog.put('GreenFilt: ' + str(t4-t3))
+        positionlogg.textlog.put('PosFunOneD: ' + str(t5-t4))
+        positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
 ###################################################################
     
 if __name__=="__main__":
