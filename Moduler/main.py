@@ -125,7 +125,8 @@ def image_module(positionlogg):
             
             #---REPLACE WITH-------
             #FiltIm=OldGreenFilt(im2,[100,210,100],10)
-            FiltIm=GreenFilt(im2,[(0,120),(150,255),(0,120)])
+            #FiltIm=GreenFilt(im2,[(0,120),(150,255),(0,120)])
+            FiltIm=SuperGreenFilt(im2)
             t4=time.time()
             [PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
             #---THIS:--------------
