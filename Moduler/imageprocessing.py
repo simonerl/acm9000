@@ -88,14 +88,17 @@ if __name__=="__main__":
         #For testing purposes
         import matplotlib.pyplot as plt
         import PIL as Image
-        img = misc.imread("test.jpeg")#image2.jpg test.jpeg
-
-        arr = np.array(img)
+        from imageshooter as *
+        #img = misc.imread("test.jpeg")#image2.jpg test.jpeg
+        camera=picamera.PiCamera()
+        implementsettings(camera)
+        
+        arr = takeRGBimage(camera).array
         [i,j]=arr.shape[0:2]
         REF=[100,200,100]
-        DivFactor=10;
 
-        Gim=GreenFilt(arr,REF,DivFactor)
+
+        Gim=GreenFilt(arr,[(0,100),(180,255),(0,100)])
 
         Pos=GreenPos(Gim[:,:,1])
 
