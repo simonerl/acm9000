@@ -40,7 +40,7 @@ def GreenFilt(RGB,REF):
         green_range = np.logical_and(REF[1][0] < RGB[:,:,0], RGB[:,:,0] < REF[1][1])
         blue_range = np.logical_and(REF[2][0] < RGB[:,:,0], RGB[:,:,0] < REF[2][1])
         valid_range = np.logical_and(red_range, green_range, blue_range)
-        
+
         RGB[valid_range] = 255                  #Output color value if true (all channels)
         RGB[np.logical_not(valid_range)] = 0    #Black if false
         return RGB[:,:,1]
@@ -94,11 +94,12 @@ if __name__=="__main__":
         implementsettings(camera)
         
         arr = takeRGBimage(camera).array
+        RGB=arr.copy()
         [i,j]=arr.shape[0:2]
         REF=[100,200,100]
 
 
-        Gim=GreenFilt(arr,[(0,100),(180,255),(0,100)])
+        Gim=GreenFilt(RGB,[(0,100),(180,255),(0,100)])
 
         Pos=GreenPos(Gim[:,:,1])
 
