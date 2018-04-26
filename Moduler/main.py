@@ -122,13 +122,15 @@ def image_module(positionlogg):
             #positionlogg.textlog.put('Taking picture at ' + str(currentPos))
             im2=image.copy()
             t3=time.time()
+            
+            #---REPLACE WITH-------
             FiltIm=OldGreenFilt(im2,[100,210,100],10)
             t4=time.time()
-            #positionlogg.textlog.put('Filtering')
-            #misc.imsave('TestPic' +str(n)+'.jpeg', image)
-            #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
-            #[PosX,PosY]=GreenPos(FiltIm)
             [PosX,PosY]=PosFunOneD(FiltIm)
+            #---THIS:--------------
+            #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
+            #----------------------
+            
             t5=time.time()
             #positionlogg.textlog.put('Position found: ' + str(PosX))
             if abs(PosX)>10:
@@ -142,6 +144,7 @@ def image_module(positionlogg):
             positionlogg.textlog.put('GreenFilt: ' + str(t4-t3))
             positionlogg.textlog.put('PosFunOneD: ' + str(t5-t4))
             positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
+            positionlogg.textlog.put('log')
     except Exception as e:
         positionlogg.textlog.put(e)
         positionlogg.textlog.put('end')
@@ -156,7 +159,7 @@ if __name__=="__main__":
         if pl.textlog:
             msg=pl.textlog.get() #Message from other threads
             print(msg)
-            if  msg=='!':
+            if  msg=='log':
                 #log the current position in a log file
                 pass
             elif  msg=='end':

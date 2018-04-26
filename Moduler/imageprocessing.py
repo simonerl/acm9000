@@ -3,20 +3,19 @@
 # functions for ACM9000 project.        #
 # By Simon Erlandsson & Gustav Burman   #
 #                                       #
-# Version 2.1:2018-04-24                #
+# Version 2.1:2018-04-26                #
 #########################################
-# This file is an altered version of KEXFUN.py
-# - Cleaned up to be able to run on a RPi
-# - Major cleanups to fit modularization
+# CHANGELOG:
+# - Comments for all functions
+# - Added new GreenFilt based on numpy logical gates
+# - Added ProcessImage-function
 #########################################
 import numpy as np
 from scipy import misc
 import  time
-#import matplotlib.pyplot as plt
-#import PIL as Image
 
 def OldGreenFilt(RGB,REF,DivFactor):
-        """Denna metod gör precis samma sak som GreenFilt men är 100 ggr så långsam"""
+        """This method does the same thing as GreenFilt but 100 times slower."""
 
         [m,k]=RGB.shape[0:2]
         #RGB=DivFactor*np.round(RGB/DivFactor)
@@ -31,19 +30,22 @@ def OldGreenFilt(RGB,REF,DivFactor):
         return RGB[:,:,1]
 
 def GreenFilt(RGB,REF):
-        """Filtrerar ut allt förutom de färgintervall givna i REF. Ger ut en svartvit (booleansk) matris"""
+        """Filters out everything but the color value intervalls given in REF. Returns a black and white (boolean) matrix."""
         #Källa: https://stackoverflow.com/questions/7722519/fast-rgb-thresholding-in-python-possibly-some-smart-opencv-code
-        #Skriv REF på detta sätt [(Rmin,Rmax),(Gmin,Gmax),(Bmin,Bmax)]
+        #Write REF in this way [(Rmin,Rmax),(Gmin,Gmax),(Bmin,Bmax)]
         #ex. [(90,130),(60,150),(50,210)]
+        
         red_range = np.logical_and(R[0][0] < arr[:,:,0], arr[:,:,0] < R[0][1])
         green_range = np.logical_and(R[1][0] < arr[:,:,0], arr[:,:,0] < R[1][1])
         blue_range = np.logical_and(R[2][0] < arr[:,:,0], arr[:,:,0] < R[2][1])
         valid_range = np.logical_and(red_range, green_range, blue_range)
         
-        arr[valid_range] = 200
-        arr[np.logical_not(valid_range)] = 0
+        arr[valid_range] = 255                  #Output color value if true (all channels)
+        arr[np.logical_not(valid_range)] = 0    #Black if false
         
-def GreenPos(RGB): #En ide är att lägga in denna funktionalitet i Greenfilt för  att inte göra massa dubbelt arbete
+def GreenPos(RGB):
+        """Finds the green mean-value of the image. Both X and Y axes."""
+        #Can this be done faster with numpy logical gates?
         [m,k]=RGB.shape[0:2]
         GPos=np.int64(np.array([0,0]))
         for i in range(0,m):                
@@ -53,6 +55,7 @@ def GreenPos(RGB): #En ide är att lägga in denna funktionalitet i Greenfilt f�
         return (int(Pos[0]),int(Pos[1]))
 
 def PosFunOneD(RGB):
+        """Finds the green center point with a smarter algorithm than GreenPos. X axis only."""
         [r,k]=RGB.shape[0:2]
         OneD=[] 
         for i in range(0,k):
@@ -70,25 +73,36 @@ def PosFunOneD(RGB):
                 
         Pos=i+(j-i)/2-k/2
         return (Pos,0)
-                
-                
-##img = misc.imread("test.jpeg")#image2.jpg test.jpeg
-##
-##arr = np.array(img)
-##[i,j]=arr.shape[0:2]
-##REF=[100,200,100]
-##DivFactor=10;
-##
-##Gim=GreenFilt(arr,REF,DivFactor)
-##
-##Pos=GreenPos(Gim[:,:,1])
-##
-##Gim[Pos]=[255,0,0]
-##print(Pos)
-##
-##from matplotlib import pyplot as plt
-##plt.imshow(Gim, interpolation='nearest')
-##plt.show()
+
+def ProcessImage(RGB, REF):
+        """Does all image procesing. BOth filtering and finding the right position and returns it"""
+        FiltIm=OldGreenFilt(im2,[100,210,100],10)
+        [PosX,PosY]=PosFunOneD(FiltIm)
+        return PosX
+
+
+
+if __name__=="__main__":
+        #For testing purposes
+        import matplotlib.pyplot as plt
+        import PIL as Image
+        img = misc.imread("test.jpeg")#image2.jpg test.jpeg
+
+        arr = np.array(img)
+        [i,j]=arr.shape[0:2]
+        REF=[100,200,100]
+        DivFactor=10;
+
+        Gim=GreenFilt(arr,REF,DivFactor)
+
+        Pos=GreenPos(Gim[:,:,1])
+
+        Gim[Pos]=[255,0,0]
+        print(Pos)
+
+        from matplotlib import pyplot as plt
+        plt.imshow(Gim, interpolation='nearest')
+        plt.show()
 
 
 
