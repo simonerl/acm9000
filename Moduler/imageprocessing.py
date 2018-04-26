@@ -107,7 +107,8 @@ if __name__=="__main__":
         REF=[100,200,100]
 
 
-        Gim=GreenFilt(RGB,[(0,100),(180,255),(0,100)])
+        #Gim=GreenFilt(RGB,[(0,100),(180,255),(0,100)])
+        Gim=SuperGreenFilt(RGB)
 
         #Pos=GreenPos(Gim[:,:,1])
 
