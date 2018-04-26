@@ -142,7 +142,6 @@ def image_module(positionlogg):
             positionlogg.textlog.put('GreenFilt: ' + str(t4-t3))
             positionlogg.textlog.put('PosFunOneD: ' + str(t5-t4))
             positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
-            raise ValueError('I was planted!')
     except Exception as e:
         positionlogg.textlog.put(e)
         positionlogg.textlog.put('end')
@@ -161,6 +160,7 @@ if __name__=="__main__":
                 #log the current position in a log file
                 pass
             elif  msg=='end':
+                print('A thread crashed. Shutting down...')
                 #end the program
                 break;
 
