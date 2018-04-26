@@ -43,7 +43,7 @@ def GreenFilt(RGB,REF):
 
         RGB[valid_range] = 255                  #Output color value if true (all channels)
         RGB[np.logical_not(valid_range)] = 0    #Black if false
-        return RGB[:,:,1]
+        return RGB
 
 def GreenPos(RGB):
         """Finds the green mean-value of the image. Both X and Y axes."""
