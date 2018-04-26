@@ -34,15 +34,17 @@ def GreenFilt(RGB,REF):
         #Källa: https://stackoverflow.com/questions/7722519/fast-rgb-thresholding-in-python-possibly-some-smart-opencv-code
         #Write REF in this way [(Rmin,Rmax),(Gmin,Gmax),(Bmin,Bmax)]
         #ex. [(90,130),(60,150),(50,210)]
+        #[(0,100),(180,255),(0,100)]
         
-        red_range = np.logical_and(R[0][0] < arr[:,:,0], arr[:,:,0] < R[0][1])
-        green_range = np.logical_and(R[1][0] < arr[:,:,0], arr[:,:,0] < R[1][1])
-        blue_range = np.logical_and(R[2][0] < arr[:,:,0], arr[:,:,0] < R[2][1])
+        red_range = np.logical_and(REF[0][0] < RGB[:,:,0], RGB[:,:,0] < REF[0][1])
+        green_range = np.logical_and(REF[1][0] < RGB[:,:,0], RGB[:,:,0] < REF[1][1])
+        blue_range = np.logical_and(REF[2][0] < RGB[:,:,0], RGB[:,:,0] < REF[2][1])
         valid_range = np.logical_and(red_range, green_range, blue_range)
         
-        arr[valid_range] = 255                  #Output color value if true (all channels)
-        arr[np.logical_not(valid_range)] = 0    #Black if false
-        
+        RGB[valid_range] = 255                  #Output color value if true (all channels)
+        RGB[np.logical_not(valid_range)] = 0    #Black if false
+        return RGB[:,:,1]
+
 def GreenPos(RGB):
         """Finds the green mean-value of the image. Both X and Y axes."""
         #Can this be done faster with numpy logical gates?
