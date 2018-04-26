@@ -86,7 +86,7 @@ def ProcessImage(RGB, REF):
 
 if __name__=="__main__":
         #For testing purposes
-        import matplotlib.pyplot as plt
+        #import matplotlib.pyplot as plt
         import PIL as Image
         from imageshooter as *
         #img = misc.imread("test.jpeg")#image2.jpg test.jpeg
@@ -104,10 +104,8 @@ if __name__=="__main__":
 
         Gim[Pos]=[255,0,0]
         print(Pos)
-
-        from matplotlib import pyplot as plt
-        plt.imshow(Gim, interpolation='nearest')
-        plt.show()
+        
+        misc.imsave("test.jpeg",Gim)
 
 
 
