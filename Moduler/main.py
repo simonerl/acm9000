@@ -104,7 +104,7 @@ def motor_module(positionlogg,loop=True):
                     H.onestep(0.02,False)
                     positionlogg.COV-=1
                     steps-=1
-    except(e):
+    except:
         positionlogg.textlog.put(str(sys.exc_info()[0]))
         positionlogg.textlog.put('end')
 def image_module(positionlogg):
@@ -143,7 +143,7 @@ def image_module(positionlogg):
             positionlogg.textlog.put('PosFunOneD: ' + str(t5-t4))
             positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
             raise Exception('I was planted!')
-    except(e):
+    except:
         positionlogg.textlog.put(str(sys.exc_info()[0]))
         positionlogg.textlog.put('end')
 ###################################################################
