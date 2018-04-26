@@ -2,7 +2,7 @@
 # Main program module for ACM9000       #
 # By Simon Erlandsson & Gustav Burman   #
 #                                       #
-# Version 2.0:2018-04-24                #
+# Version 2.1:2018-04-25                #
 #########################################
 # This program will connect the different
 # modules for the ACM9000 project
@@ -109,22 +109,35 @@ def image_module(positionlogg):
     camera=picamera.PiCamera()
     implementsettings(camera)
     while True:
+        t0=time.time()
         image=takeRGBimage(camera).array
+        t1=time.time()
         currentPos=positionlogg.COV #So we know where the image was taken
+        t2=time.time()
         #positionlogg.textlog.put('Taking picture at ' + str(currentPos))
         im2=image.copy()
+        t3=time.time()
         FiltIm=GreenFilt(im2,[100,210,100],10)
+        t4=time.time()
         #positionlogg.textlog.put('Filtering')
         #misc.imsave('TestPic' +str(n)+'.jpeg', image)
         #misc.imsave('TestPicGreen' +str(n)+'.jpeg', FiltIm)
         #[PosX,PosY]=GreenPos(FiltIm)
         [PosX,PosY]=PosFunOneD(FiltIm)
+        t5=time.time()
         #positionlogg.textlog.put('Position found: ' + str(PosX))
         if abs(PosX)>10:
             positionlogg.errorvalue=positionlogg.PixelsToSteps(PosX)
             positionlogg.imageposition=currentPos
+        t6=time.time()
         #positionlogg.textlog.put(positionlogg.current_position())
-
+        
+        positionlogg.textlog.put('takeRgbimage(camera).array: ' + str(t0-t1))
+        positionlogg.textlog.put('currentPos=positionlogg.COV: ' + str(t1-t2))
+        positionlogg.textlog.put('image.copy(): ' + str(t2-t3))
+        positionlogg.textlog.put('GreenFilt: ' + str(t3-t4))
+        positionlogg.textlog.put('PosFunOneD: ' + str(t4-t5))
+        positionlogg.textlog.put('if abs(PosX)>10: ' + str(t4-t5))
 ###################################################################
     
 if __name__=="__main__":
