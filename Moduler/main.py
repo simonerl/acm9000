@@ -127,7 +127,7 @@ def image_module(positionlogg):
             #FiltIm=OldGreenFilt(im2,[100,210,100],10)
             FiltIm=GreenFilt(im2,[(0,120),(150,255),(0,120)])
             t4=time.time()
-            [PosX,PosY]=PosFunOneD(FiltIm)
+            [PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
             #---THIS:--------------
             #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
             #----------------------
