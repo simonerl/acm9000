@@ -105,7 +105,7 @@ def motor_module(positionlogg,loop=True):
                     positionlogg.COV-=1
                     steps-=1
     except(e):
-        positionlogg.textlog.put(e)
+        positionlogg.textlog.put(str(sys.exc_info()[0]))
         positionlogg.textlog.put('end')
 def image_module(positionlogg):
     """Image module that takes care of taking images with the camera and processing it"""
@@ -144,7 +144,7 @@ def image_module(positionlogg):
             positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
             raise Exception('I was planted!')
     except(e):
-        positionlogg.textlog.put(e)
+        positionlogg.textlog.put(str(sys.exc_info()[0]))
         positionlogg.textlog.put('end')
 ###################################################################
     
