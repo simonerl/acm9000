@@ -31,8 +31,6 @@ while True:
     t0=time.time()
     image=takeRGBimage(camera).array
     t1=time.time()
-    currentPos=positionlogg.COV #So we know where the image was taken
-    t2=time.time()
     im2=image.copy()
     t3=time.time()
     
@@ -53,10 +51,9 @@ while True:
     misc.imsave('/media/pi/USB DISK/TESTBILDER/testg'+str(num)+'.jpg', FiltIm)
     num+=1
     print('\ntakeRgbimage(camera).array: ' + str(t1-t0))
-    print('currentPos=positionlogg.COV: ' + str(t2-t1))
-    print('image.copy(): ' + str(t3-t2))
+    print('image.copy(): ' + str(t3-t1))
     print('GreenFilt: ' + str(t4-t3))
     print('PosFunOneD: ' + str(t5-t4))
     print('if abs(PosX)>10: ' + str(t5-t6))
-    writelines('testdata',[[PosX,PosY, t1-t0, t2-t1,t3-t2,t4-t3,t5-t4, t6-t5, avstand]])
+    writelines('testdata',[[PosX,PosY, t1-t0,t3-t1,t4-t3,t5-t4, t6-t5, avstand]])
 
