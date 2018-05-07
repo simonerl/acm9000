@@ -47,6 +47,7 @@ while True:
         print('WITHIN 10 PIXELS. NO NEW POSITION ASSIGNED')
     t6=time.time()
     #Saving images:
+    FiltIm[PosX,:]=127
     misc.imsave('/media/pi/USB DISK/TESTBILDER/testi'+str(num)+'.jpg', image)
     misc.imsave('/media/pi/USB DISK/TESTBILDER/testg'+str(num)+'.jpg', FiltIm)
     num+=1
