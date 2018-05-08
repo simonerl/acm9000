@@ -182,7 +182,7 @@ def image_module(positionlogg):
 ##            positionlogg.textlog.put('GreenFilt: ' + str(t4-t3))
             positionlogg.textlog.put('PosFunOneD: ' + str(t5-t4))
 ##            positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
-            positionlogg.textlog.put('Total tid
+            positionlogg.textlog.put('Total tid ' + str(t0-t6))
             positionlogg.textlog.put('log')
     except Exception as e:
         positionlogg.textlog.put(e)
