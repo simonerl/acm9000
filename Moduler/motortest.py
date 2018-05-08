@@ -4,7 +4,9 @@
 #                                       #
 # Version 1.0:2018-05-08                #
 #########################################
+
 from motorstyrning import *
+import threading
 
 def motor_module(speed,loop=True):
     """Motor module that runs the motor on a thread"""
