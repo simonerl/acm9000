@@ -183,5 +183,5 @@ if __name__=="__main__":
                 break;
     H=Hbrygga()
     H.setToIdle()
-    H.GPIO.cleanup()
+    #H.GPIO.cleanup()
     
