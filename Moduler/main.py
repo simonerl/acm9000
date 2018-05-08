@@ -35,12 +35,11 @@ class positionlogg():
         self.steprevolution=self.motor_steprevolution*self.gearratio        #Number of steps per revolution
         self.degreelock=180                                                 #How many degrees the motor should be able to turn
         self.camerawidth=112                                                #!!!This should be assigned with/based on camera.resoution!!!
-        self.camerahight=80                                                 #
+        self.cameraheight=80                                                 #
         self.cameraFOV=62                                                   #Camera Field Of View (degrees)
         self.cameraFOV_steps=round(self.cameraFOV/360*self.steprevolution)  #Camera Field Of View measured in steps
         self.steplock=self.degreelock/360*self.steprevolution               #How many steps the motor should be able to turn
 
-        #TODO: Setup code here where user puts the step motor in the middle 90 degrees
         #################
         #POSITION VALUES#
         #################
@@ -84,7 +83,31 @@ def init_threaded_modules():
 ###################################################
 #TODO: Modules must be MORE prefabricated. They should come i already packed functions. Think modularization... 
 ###################################################
-    
+##def motor_module(positionlogg,loop=True):
+##    """Motor module that runs the motor on a thread"""
+##    try:
+##        positionlogg.textlog.put('Initializing motor module')
+##        H=Hbrygga()
+##        while loop:
+##            PosX = positionlogg.get_realerror() #In steps
+##            if PosX>10:
+##                positionlogg
+##                steps=PosX
+##                while steps>0:
+##                    H.onestep(0.02,True)
+##                    positionlogg.COV+=1
+##                    steps-=1
+##            elif PosX<-10:
+##                steps=abs(PosX)
+##                while steps>0:
+##                    H.onestep(0.02,False)
+##                    positionlogg.COV-=1
+##                    steps-=1
+##            else:
+##                H.setToIdle() #Let the motor rest so it doesn't get to hot
+##    except Exception as e:
+##        positionlogg.textlog.put(e)
+##        positionlogg.textlog.put('end')    
 def motor_module(positionlogg,loop=True):
     """Motor module that runs the motor on a thread"""
     try:
@@ -94,17 +117,11 @@ def motor_module(positionlogg,loop=True):
             PosX = positionlogg.get_realerror() #In steps
             if PosX>10:
                 positionlogg
-                steps=PosX
-                while steps>0:
-                    H.onestep(0.02,True)
-                    positionlogg.COV+=1
-                    steps-=1
+                H.onestep(0.02,True)
+                positionlogg.COV+=1
             elif PosX<-10:
-                steps=abs(PosX)
-                while steps>0:
-                    H.onestep(0.02,False)
-                    positionlogg.COV-=1
-                    steps-=1
+                H.onestep(0.02,False)
+                positionlogg.COV-=1
             else:
                 H.setToIdle() #Let the motor rest so it doesn't get to hot
     except Exception as e:
@@ -120,7 +137,7 @@ def image_module(positionlogg):
         #Setup for position function
         print('Setup for GreenPos')
         columns=int(positionlogg.camerawidth)
-        rows=int(positionlogg.camerahight)
+        rows=int(positionlogg.cameraheight)
         print(str(columns),str(rows))
         MultMatrix=np.transpose(np.zeros(columns))
         b=0
@@ -146,7 +163,7 @@ def image_module(positionlogg):
             #[PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
             PosY=0;
             PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns)
-            positionlogg.textlog.put(str(PosFunOneD(FiltIm[:,:,1])))
+            #positionlogg.textlog.put(str(PosFunOneD(FiltIm[:,:,1])))
             positionlogg.textlog.put(str(PosX))
             #---THIS:--------------
             #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
