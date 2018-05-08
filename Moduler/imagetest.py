@@ -27,8 +27,8 @@ emptyfile('testdata')
 num=1
 #Setup for position function
 print('Setup for GreenPos')
-columns=int(positionlogg.camerawidth)
-rows=int(positionlogg.camerahight)
+columns=int(112)
+rows=int(80)
 print(str(columns),str(rows))
 MultMatrix=np.transpose(np.zeros(columns))
 b=0
