@@ -84,7 +84,7 @@ def xxXtr3m3Sup3rGr33nPosXxx(FiltIm,MultMatrix,rows,columns):
         try:
                 print(np.sum(FiltIm*MultMatrix))
                 print(np.sum(FiltIm))
-                ans=round(np.sum(FiltIm*MultMatrix)/np.sum(FiltIm))
+                ans=round(np.sum(FiltIm*MultMatrix)/float(np.sum(FiltIm)))
         except(Exception): #If NaN
                 ans = 0
         return ans
