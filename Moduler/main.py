@@ -2,7 +2,7 @@
 # Main program module for ACM9000       #
 # By Simon Erlandsson & Gustav Burman   #
 #                                       #
-# Version 2.2:2018-05-07                #
+# Version 2.3:2018-05-08                #
 #########################################
 # This program will connect the different
 # modules for the ACM9000 project

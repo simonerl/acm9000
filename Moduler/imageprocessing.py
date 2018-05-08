@@ -3,13 +3,9 @@
 # functions for ACM9000 project.        #
 # By Simon Erlandsson & Gustav Burman   #
 #                                       #
-# Version 2.1:2018-04-26                #
+# Version 2.2:2018-05-08                #
 #########################################
-# CHANGELOG:
-# - Comments for all functions
-# - Added new GreenFilt based on numpy logical gates
-# - Added ProcessImage-function
-#########################################
+
 import numpy as np
 from scipy import misc
 import  time
