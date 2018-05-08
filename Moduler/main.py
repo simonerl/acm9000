@@ -145,24 +145,28 @@ def image_module(positionlogg):
         while True:
             t0=time.time()
             image=takeRGBimage(camera).array
+            t1=time.time()
             currentPos=positionlogg.COV #So we know where the image was taken
             im2=image.copy()
-            
+            t2=time.time()
             FiltIm=SuperGreenFilt(im2)
+            t3=time.time()
             #PosY=0;
             PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns) #rename plz
+            t4=time.time()
 
             #---THIS:--------------
             #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
             #----------------------
             step_PosX=positionlogg.PixelsToSteps(PosX)
-
-            if not step_PosX:
+            
+            if abs(step_PosX) > 10:
                 positionlogg.errorvalue=step_PosX
                 positionlogg.imageposition=currentPos
-            t1=time.time()
+            t5=time.time()
             positionlogg.textlog.put('Stegposition: ' + str(step_PosX))
-            positionlogg.textlog.put('Total tid ' + str(t1-t0))
+            #positionlogg.textlog.put('Total tid ' + str(t1-t0))
+            positionlogg.textlog.put('Tider ' + str(t1-t0)+ str(t2-t1)+ str(t3-t2)+ str(t4-t3)+ str(t5-t4))
     except Exception as e:
         positionlogg.textlog.put(e)
         positionlogg.textlog.put('end')
