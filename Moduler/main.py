@@ -117,10 +117,10 @@ def motor_module(positionlogg,loop=True):
             PosX = positionlogg.get_realerror() #In steps
             if PosX>10:
                 positionlogg
-                H.onestep(0.01,True)
+                H.onestep(0.016,True)
                 positionlogg.COV+=1
             elif PosX<-10:
-                H.onestep(0.01,False)
+                H.onestep(0.016,False)
                 positionlogg.COV-=1
             else:
                 H.setToIdle() #Let the motor rest so it doesn't get to hot
