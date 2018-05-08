@@ -118,14 +118,16 @@ def image_module(positionlogg):
         implementsettings(camera)
 
         #Setup for position function
+        print('Setup for GreenPos')
         columns=int(positionlogg.camerawidth)
         rows=int(positionlogg.camerahight)
+        print(str(columns),str(rows))
         MultMatrix=np.zeros(1,rows)
         b=0
         for v in MultMatrix:
             v=columns/2-columns+b;
             b+=1
-            
+        print(str(MultMatrix))
         while True:
             t0=time.time()
             image=takeRGBimage(camera).array
