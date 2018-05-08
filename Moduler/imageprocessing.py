@@ -82,7 +82,9 @@ def PosFunOneD(RGB):
 
 def xxXtr3m3Sup3rGr33nPosXxx(FiltIm,MultMatrix,rows,columns):
         try:
-                ans=np.sum(FiltIm*MultMatrix)/np.sum(FiltIm)
+                print(np.sum(FiltIm*MultMatrix))
+                print(np.sum(FiltIm))
+                ans=round(np.sum(FiltIm*MultMatrix)/np.sum(FiltIm))
         except(Exception): #If NaN
                 ans = 0
         return ans
