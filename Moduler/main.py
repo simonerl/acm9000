@@ -122,7 +122,7 @@ def image_module(positionlogg):
         columns=int(positionlogg.camerawidth)
         rows=int(positionlogg.camerahight)
         print(str(columns),str(rows))
-        MultMatrix=np.zeros(1,rows)
+        MultMatrix=np.transpose(np.zeros(rows))
         b=0
         for v in MultMatrix:
             v=columns/2-columns+b;
