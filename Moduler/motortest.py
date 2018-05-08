@@ -8,15 +8,15 @@
 from motorstyrning import *
 import threading
 
-def motor_module(speed,loop=True):
+def motor_module(s,loop=True):
     """Motor module that runs the motor on a thread"""
     try:
         H=Hbrygga()
         while loop:
-            if speed > 0:
-                H.onestep(speed,True)
-            elif speed < 0:
-                H.onestep(abs(speed),False)
+            if s.speed > 0:
+                H.onestep(s.speed ,True)
+            elif s.speed < 0:
+                H.onestep(abs(s.speed),False)
             else:
                 H.setToIdle() #Let the motor rest so it doesn't get to hot
     except Exception as e:
