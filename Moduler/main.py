@@ -142,7 +142,6 @@ def image_module(positionlogg):
         for v in MultMatrix:
             MultMatrix[b]=b-columns/2+1;
             b+=1
-        print(str(MultMatrix))
         while True:
             t0=time.time()
             image=takeRGBimage(camera).array
