@@ -3,7 +3,7 @@
 # functions for ACM9000 project.        #
 # By Simon Erlandsson & Gustav Burman   #
 #                                       #
-# Version 2.2:2018-05-08                #
+# Version 2.3:2018-05-08                #
 #########################################
 
 import numpy as np
@@ -81,7 +81,11 @@ def PosFunOneD(RGB):
         return (Pos,0)
 
 def xxXtr3m3Sup3rGr33nPosXxx(FiltIm,MultMatrix,rows,columns):
-        return round(np.sum(FiltIm*MultMatrix)/np.sum(FiltIm));
+        try:
+                ans=round(np.sum(FiltIm*MultMatrix)/np.sum(FiltIm))
+        except(Exception): #If NaN
+                ans = 0
+        return ans
 
 def ProcessImage(RGB, REF):
         """Does all image procesing. BOth filtering and finding the right position and returns it"""
