@@ -146,6 +146,7 @@ def image_module(positionlogg):
             #[PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
             PosY=0;
             PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns)
+            positionlogg.textlog.put(str(PosFunOneD(FiltIm[:,:,1])))
             positionlogg.textlog.put(str(PosX))
             #---THIS:--------------
             #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
@@ -158,12 +159,12 @@ def image_module(positionlogg):
                 positionlogg.imageposition=currentPos
             t6=time.time()
             #positionlogg.textlog.put(positionlogg.current_position())
-            positionlogg.textlog.put('\ntakeRgbimage(camera).array: ' + str(t1-t0))
-            positionlogg.textlog.put('currentPos=positionlogg.COV: ' + str(t2-t1))
-            positionlogg.textlog.put('image.copy(): ' + str(t3-t2))
-            positionlogg.textlog.put('GreenFilt: ' + str(t4-t3))
+##            positionlogg.textlog.put('\ntakeRgbimage(camera).array: ' + str(t1-t0))
+##            positionlogg.textlog.put('currentPos=positionlogg.COV: ' + str(t2-t1))
+##            positionlogg.textlog.put('image.copy(): ' + str(t3-t2))
+##            positionlogg.textlog.put('GreenFilt: ' + str(t4-t3))
             positionlogg.textlog.put('PosFunOneD: ' + str(t5-t4))
-            positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
+##            positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
             positionlogg.textlog.put('log')
     except Exception as e:
         positionlogg.textlog.put(e)
