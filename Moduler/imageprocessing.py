@@ -83,7 +83,7 @@ def PosFunOneD(RGB):
 def xxXtr3m3Sup3rGr33nPosXxx(FiltIm,MultMatrix,rows,columns):
         a=np.sum(FiltIm*MultMatrix)
         b=np.sum(FiltIm)
-        if not b:
+        if b == 0:
                 ans=0
         else:
                 ans=round(a/b)
