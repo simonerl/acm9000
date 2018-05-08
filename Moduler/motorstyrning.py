@@ -2,7 +2,7 @@
 # Kod för styrning av motor/motorer med en        #
 # krets med L298N och en raspberry pi:s GPIO-pins.#
 # Av: Simon Erlandsson                            #
-# Version: 2.1:2018-04-24                         #
+# Version: 2.2:2018-05-07                         #
 ###################################################
 import RPi.GPIO as GPIO
 import time
@@ -78,7 +78,9 @@ class Hbrygga:
             self.state=(self.state + 1)%4
         else: #anti-clockwise
             self.state=(self.state - 1)%4
-
+    def setToIdle(self):
+        """Låter motorn vila  så att den inte blir för varm"""
+        GPIO.output(self.ctrlpins_list, self.state0)
     def setupState(self):
         """Går igenom all states på motor och sätter state till start-state"""
         speed=0.01 #

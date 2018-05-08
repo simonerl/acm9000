@@ -2,7 +2,7 @@
 # Main program module for ACM9000       #
 # By Simon Erlandsson & Gustav Burman   #
 #                                       #
-# Version 2.1:2018-04-25                #
+# Version 2.2:2018-05-07                #
 #########################################
 # This program will connect the different
 # modules for the ACM9000 project
@@ -104,6 +104,8 @@ def motor_module(positionlogg,loop=True):
                     H.onestep(0.02,False)
                     positionlogg.COV-=1
                     steps-=1
+            else:
+                H.setToIdle() #Let the motor rest so it doesn't get to hot
     except Exception as e:
         positionlogg.textlog.put(e)
         positionlogg.textlog.put('end')
@@ -168,5 +170,7 @@ if __name__=="__main__":
                 print('A thread crashed. Shutting down...')
                 #end the program
                 break;
-
+    H=Hbrygga()
+    H.setToIdle()
+    H.GPIO.cleanup()
     
