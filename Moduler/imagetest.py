@@ -39,7 +39,8 @@ while True:
     FiltIm=SuperGreenFilt(im2)
     t4=time.time()
     [PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
-
+    PosY2=0;
+    PosX2=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns)
     
     t5=time.time()
     #positionlogg.textlog.put('Position found: ' + str(PosX))
@@ -48,6 +49,9 @@ while True:
     t6=time.time()
     #Saving images:
     FiltIm[:,int(PosX+66)]=127 #PosX är beräknat utifrånn mitten av bilden
+    FiltIm[:,int(PosX2+66)]=200
+    print(str(PosX))
+    print(str(PosX2))
     misc.imsave('/media/pi/USB DISK/TESTBILDER/testi'+str(num)+'.jpg', image)
     misc.imsave('/media/pi/USB DISK/TESTBILDER/testg'+str(num)+'.jpg', FiltIm)
     num+=1
