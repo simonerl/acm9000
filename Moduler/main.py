@@ -125,7 +125,7 @@ def image_module(positionlogg):
         MultMatrix=np.transpose(np.zeros(rows))
         b=0
         for v in MultMatrix:
-            v=columns/2-columns+b;
+            MultMatrix[b]=columns/2-columns+b;
             b+=1
         print(str(MultMatrix))
         while True:
