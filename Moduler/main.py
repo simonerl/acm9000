@@ -117,7 +117,9 @@ def image_module(positionlogg):
         implementsettings(camera)
 
         #Setup for position function
-        (columns,rows)=camera.resolution
+        [columns,rows]=camera.resolution
+        columns=int(columns)
+        rows=int(rows)
         MultMatrix=np.zeros(1,rows)
         b=0
         for v in MultMatrix:
