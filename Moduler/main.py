@@ -117,10 +117,10 @@ def motor_module(positionlogg,loop=True):
             PosX = positionlogg.get_realerror() #In steps
             if PosX>10:
                 positionlogg
-                H.onestep(0.016,True)
+                H.onestep(0.018,True)
                 positionlogg.COV+=1
             elif PosX<-10:
-                H.onestep(0.016,False)
+                H.onestep(0.018,False)
                 positionlogg.COV-=1
             else:
                 H.setToIdle() #Let the motor rest so it doesn't get to hot
@@ -162,9 +162,9 @@ def image_module(positionlogg):
             t4=time.time()
             #[PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
             PosY=0;
-            PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns)
+            PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns) #rename
             #positionlogg.textlog.put(str(PosFunOneD(FiltIm[:,:,1])))
-            positionlogg.textlog.put(str(PosX))
+            positionlogg.textlog.put('Pixelposition: ' + str(PosX))
             #---THIS:--------------
             #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
             #----------------------
@@ -179,10 +179,10 @@ def image_module(positionlogg):
 ##            positionlogg.textlog.put('\ntakeRgbimage(camera).array: ' + str(t1-t0))
 ##            positionlogg.textlog.put('currentPos=positionlogg.COV: ' + str(t2-t1))
 ##            positionlogg.textlog.put('image.copy(): ' + str(t3-t2))
-##            positionlogg.textlog.put('GreenFilt: ' + str(t4-t3))
-            positionlogg.textlog.put('PosFunOneD: ' + str(t5-t4))
+            positionlogg.textlog.put('Filtrering: ' + str(t4-t3))
+            positionlogg.textlog.put('Positionsbestämning: ' + str(t5-t4))
 ##            positionlogg.textlog.put('if abs(PosX)>10: ' + str(t5-t6))
-            positionlogg.textlog.put('Total tid ' + str(t0-t6))
+            positionlogg.textlog.put('Total tid ' + str(t6-t0))
             positionlogg.textlog.put('log')
     except Exception as e:
         positionlogg.textlog.put(e)
