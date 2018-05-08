@@ -59,8 +59,8 @@ while True:
         print('WITHIN 10 PIXELS. NO NEW POSITION ASSIGNED')
     t6=time.time()
     #Saving images:
-    FiltIm[:,int(PosX+66)]=127 #PosX är beräknat utifrånn mitten av bilden
-    FiltIm[:,int(PosX2+66)]=200
+    FiltIm[:,int(PosX+55)]=127 #PosX är beräknat utifrånn mitten av bilden
+    FiltIm[:,int(PosX2+55)]=200
     print(str(PosX))
     print(str(PosX2))
     misc.imsave('/media/pi/USB DISK/TESTBILDER/testi'+str(num)+'.jpg', image)
