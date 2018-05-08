@@ -35,6 +35,7 @@ class positionlogg():
         self.steprevolution=self.motor_steprevolution*self.gearratio        #Number of steps per revolution
         self.degreelock=180                                                 #How many degrees the motor should be able to turn
         self.camerawidth=112                                                #!!!This should be assigned with/based on camera.resoution!!!
+        self.camerahight=80                                                 #
         self.cameraFOV=62                                                   #Camera Field Of View (degrees)
         self.cameraFOV_steps=round(self.cameraFOV/360*self.steprevolution)  #Camera Field Of View measured in steps
         self.steplock=self.degreelock/360*self.steprevolution               #How many steps the motor should be able to turn
@@ -117,9 +118,8 @@ def image_module(positionlogg):
         implementsettings(camera)
 
         #Setup for position function
-        [columns,rows]=camera.resolution
-        columns=int(columns)
-        rows=int(rows)
+        columns=int(positionlogg.camerawidth)
+        rows=int(positionlogg.camerahight)
         MultMatrix=np.zeros(1,rows)
         b=0
         for v in MultMatrix:
