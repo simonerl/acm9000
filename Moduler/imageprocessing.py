@@ -86,11 +86,6 @@ def PosFunOneD(RGB):
 
 def xxXtr3m3Sup3rGr33nPosXxx(FiltIm,MultMatrix,rows,columns):
         return np.sum(FiltIm*MultMatrix)/(rows*columns);
-        
-
-
-
-        
 
 def ProcessImage(RGB, REF):
         """Does all image procesing. BOth filtering and finding the right position and returns it"""

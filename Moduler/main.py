@@ -115,6 +115,15 @@ def image_module(positionlogg):
         positionlogg.textlog.put('Initializing image module')
         camera=picamera.PiCamera()
         implementsettings(camera)
+
+        #Setup for position function
+        [columns,rows]=camera.resolution()
+        MultMatrix=np.zeros(1,rows)
+        b=0
+        for v in MultMatrix:
+            v=columns/2-columns+b;
+            b+=1
+            
         while True:
             t0=time.time()
             image=takeRGBimage(camera).array
@@ -130,7 +139,9 @@ def image_module(positionlogg):
             #FiltIm=GreenFilt(im2,[(0,120),(150,255),(0,120)])
             FiltIm=SuperGreenFilt(im2)
             t4=time.time()
-            [PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
+            #[PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
+            PosY=0;
+            PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm,MultMatrix,rows,columns)
             #---THIS:--------------
             #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
             #----------------------
