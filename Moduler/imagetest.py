@@ -25,6 +25,17 @@ camera=picamera.PiCamera()
 implementsettings(camera)
 emptyfile('testdata')
 num=1
+#Setup for position function
+print('Setup for GreenPos')
+columns=int(positionlogg.camerawidth)
+rows=int(positionlogg.camerahight)
+print(str(columns),str(rows))
+MultMatrix=np.transpose(np.zeros(columns))
+b=0
+for v in MultMatrix:
+    MultMatrix[b]=b-columns/2+1;
+    b+=1
+print(str(MultMatrix))
 while True:
     
     avstand=input('At what distance is the object?')
