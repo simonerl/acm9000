@@ -146,6 +146,7 @@ def image_module(positionlogg):
             #[PosX,PosY]=PosFunOneD(FiltIm[:,:,1])
             PosY=0;
             PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns)
+            positionlogg.textlog.put(str(PosX))
             #---THIS:--------------
             #PosX=ProcessImage(im2, [(90,110),(200,255),(90,110)]) #New processing algorithm. !!!CHECK IF RGB-VALUES ARE CORRECT!!!
             #----------------------
