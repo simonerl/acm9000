@@ -157,9 +157,9 @@ def image_module(positionlogg):
             #----------------------
             step_PosX=positionlogg.PixelsToSteps(PosX)
 
-            if abs(step_PosX)>10:
-                positionlogg.errorvalue=step_PosX
-                positionlogg.imageposition=currentPos
+            #if abs(step_PosX)>10:
+            positionlogg.errorvalue=step_PosX
+            positionlogg.imageposition=currentPos
             t1=time.time()
             positionlogg.textlog.put('Stegposition: ' + str(step_PosX))
             positionlogg.textlog.put('Total tid ' + str(t1-t0))
