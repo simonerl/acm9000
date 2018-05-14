@@ -3,7 +3,7 @@
 # imageprocessing.                      #
 # By Simon Erlandsson & Gustav Burman   #
 #                                       #
-# Version 2.1:2018-05-14                #
+# Version 2.0:2018-05-14                #
 #########################################
 from imageshooter import *
 from imageprocessing import *
@@ -12,7 +12,6 @@ import time
 
 #Functions used for data writing to file
 def writelines(name, matrix):
-    """Adds a matrix of values to a file by the name of '(name).dat'"""
     with open(name+'.dat', 'a') as file:
         for row in matrix:
             rowtext=str(row[0])
@@ -20,12 +19,11 @@ def writelines(name, matrix):
                 rowtext += ',' + str(row[i])
             file.write(rowtext + '\n')
 def emptyfile(name):
-    """Empties the filem stated as '(name).dat'"""
-    open(name+'.dat', 'w').close() 
+    open(name+'.dat', 'w').close() #Empty file
 if __name__ == "__main__":
     camera=picamera.PiCamera()
     implementsettings(camera)
-    emptyfile('testdata') #Remember to save file after every re-run
+    emptyfile('testdata') #Remeber to save file after every rerun
     num=1
     
     #Setup for position function
@@ -33,11 +31,10 @@ if __name__ == "__main__":
     columns=int(input('Columns (112|224): '))
     rows=int(input('Rows (80|160): '))
     print(str(columns),str(rows))
-    
     camera.resolution=(columns,rows)
     MultMatrix=np.transpose(np.zeros(columns))
     b=0
-    while b <= columns:
+    for v in MultMatrix:
         MultMatrix[b]=b-columns/2+1;
         b+=1
     print(str(MultMatrix))
@@ -53,7 +50,7 @@ if __name__ == "__main__":
         t4=time.time()
         #[PosX,PosY]=PosFunOneD(FiltIm[:,:,1]) "Not interested in this one
         #PosY2=0;
-        PosX=GreenPos(FiltIm[:,:,1],MultMatrix,rows,columns) #Rename
+        PosX=xxXtr3m3Sup3rGr33nPosXxx(FiltIm[:,:,1],MultMatrix,rows,columns) #Rename
         t5=time.time()
         if abs(PosX)>10:
             print('WITHIN 10 PIXELS. NO NEW POSITION ASSIGNED')
@@ -62,12 +59,12 @@ if __name__ == "__main__":
 
         
         #Saving images:
-        FiltIm[:,int(PosX+columns/2-1)]=127 #Draws a line at PosX
-        print('PosX is ' + str(PosX))
+        FiltIm[:,int(PosX+columns/2-1)]=127 #PosX är beräknat utifrån mitten av bilden
+        #FiltIm[:,int(PosX2+55)]=200
+        print('PosX is ' + str(PosX))        #print(str(PosX2))
         misc.imsave('/media/pi/USB DISK/TESTBILDER/testi'+str(num)+'.jpg', image)
         misc.imsave('/media/pi/USB DISK/TESTBILDER/testg'+str(num)+'.jpg', FiltIm)
 
-        #Printing the time it took to do each step
         print('\ntakeRgbimage(camera).array: ' + str(t1-t0))
         print('image.copy(): ' + str(t3-t1))
         print('GreenFilt: ' + str(t4-t3))

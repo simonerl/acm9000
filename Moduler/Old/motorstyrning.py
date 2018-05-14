@@ -1,11 +1,17 @@
 ###################################################
-# Code for driving a motor with a cicuitry        #
-# containing L298N and a Raspberry Pi's GPIO-pins.#
-# By: Simon Erlandsson                            #
-# Version: 2.3:2018-05-14                         #
+# Kod för styrning av motor/motorer med en        #
+# krets med L298N och en raspberry pi:s GPIO-pins.#
+# Av: Simon Erlandsson                            #
+# Version: 2.2:2018-05-07                         #
 ###################################################
 import RPi.GPIO as GPIO
 import time
+
+#TODO:
+#- Överföringfunktion (reglerfel -> antal steg + hastighet)
+#- Hastighetsfunktion
+
+
 
 class Hbrygga:
     def __init__(self):
@@ -17,8 +23,9 @@ class Hbrygga:
 
         #Setting up outputs:
         self.ctrlpins_list = [31,33,35,37]
+        #self.enblpins_list = [36,38] #Ger bara 3V
         GPIO.setup(self.ctrlpins_list, GPIO.OUT)
-
+        #GPIO.setup(self.enblpins_list, GPIO.OUT, initial=GPIO.HIGH)
 
         #HIGH = 3 V
         #LOW = 
@@ -27,9 +34,10 @@ class Hbrygga:
         self.state2=(GPIO.HIGH, GPIO.LOW, GPIO.LOW, GPIO.HIGH)
         self.state3=(GPIO.LOW, GPIO.HIGH,GPIO.LOW, GPIO.HIGH)
         self.state4=(GPIO.LOW, GPIO.HIGH,GPIO.HIGH, GPIO.LOW)
+        #GPIO.setwarnings(False) #Use to disable warnings.
         self.setupState()
     def loop(self):
-        """Main-loop for stepping"""
+        """Main-loop för stegning"""
         #GPIO.output(self.ctrlpins_list, GPIO.LOW)                # sets all to GPIO.LOW
         #GPIO.output(chan_list, (GPIO.HIGH, GPIO.LOW))   # sets first HIGH and second LOW
         try:
@@ -43,21 +51,21 @@ class Hbrygga:
             GPIO.cleanup() #Resets the status of any GPIO-pins (run before end)
 
     def step(self, steps, s_delay, turnclockwise):
-        """Takes a number of steps, and sleeps for s_delay seconds, clockwise or anti-clockwise"""
-        #Steps: number of steps
-        #s_delay: How many second between each step
+        """Ta ett antal steg, med s_delay mellan varje steg, med eller mot klockan"""
+        #Steps: antalet en-steg
+        #s_delay: Hur många sekunder mellan varje steg
         for i in range(steps):
             self.nextState(turnclockwise)
             time.sleep(s_delay)
 
     def onestep(self, s_delay, turnclockwise):
-        """Takes a step, and sleeps for s_delay seconds"""
-
+        """Ta ett steg, med s_delay efter, med eller mot klockan.)"""
+        #s_delay: Hur många sekunder mellan varje steg
         self.nextState(turnclockwise)
         time.sleep(s_delay)
 
     def nextState(self, turnclockwise):
-        """Sets the next state on the motor based on if it's moving clockwise or anti-clockwise"""
+        """Sätter nästa state på motorn beroende på om den ska röra sig med eller mot klockan"""
         if self.state==0:
             GPIO.output(self.ctrlpins_list, self.state1)
         elif self.state==1:
@@ -70,12 +78,11 @@ class Hbrygga:
             self.state=(self.state + 1)%4
         else: #anti-clockwise
             self.state=(self.state - 1)%4
-            
     def setToIdle(self):
-        """Lets the motor rest so it doesn't get to hot"""
+        """Låter motorn vila  så att den inte blir för varm"""
         GPIO.output(self.ctrlpins_list, self.state0)
     def setupState(self):
-        """Goes through all states on the motor and sets it to the starting state"""
+        """Går igenom all states på motor och sätter state till start-state"""
         speed=0.01 #
         
         GPIO.output(self.ctrlpins_list, self.state1)
@@ -88,6 +95,14 @@ class Hbrygga:
         time.sleep(speed)
         
         self.state=0
+        
+    def velocityFunction(self, steps,turnclockwise):
+        s_delay=lambda stepscount: 1/(steps-steps_count)
+        steps_count=0
+        for i in range(steps):
+            self.nextState(turnclockwise)
+            time.sleep(s_delay(steps_count))
+            steps_count+=1
             
 if __name__=="__main__":
     Hb=Hbrygga()
