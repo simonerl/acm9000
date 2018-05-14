@@ -31,6 +31,7 @@ if __name__ == "__main__":
     columns=int(input('Columns (112|224): '))
     rows=int(input('Rows (80|160): '))
     print(str(columns),str(rows))
+    camera.resoultion=(columns,rows)
     MultMatrix=np.transpose(np.zeros(columns))
     b=0
     for v in MultMatrix:
