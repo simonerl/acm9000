@@ -13,7 +13,7 @@ import  time
 def GreenFilt(RGB):
         """Filters out everything but green. Returns a black and white (boolean) matrix."""
         range1=np.logical_and(RGB[:,:,1] >= 121,RGB[:,:,1]>RGB[:,:,0])
-        range2=np.logical_and(RGB[:,:,1]>RGB[:,:,2],RGB[:,:,0]<90,RGB[:,:,0]<80)
+        range2=np.logical_and(RGB[:,:,1]>RGB[:,:,2],RGB[:,:,0]<90,RGB[:,:,2]<80)
         valid_range=np.logical_and(range1,range2)
         RGB[valid_range] = 255                  #Output color value if true (all channels)
         RGB[np.logical_not(valid_range)] = 0    #Black if false
